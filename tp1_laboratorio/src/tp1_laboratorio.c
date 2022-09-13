@@ -16,37 +16,41 @@
 #define LEN 22
 int main(void) {
 	int opcion;
-	int costo[3] = { 0, 0, 0 };
-	int camisetas[LEN];
-
-//	int arquero[2];
-//	int defensor[8];
-//	int mediocampista[8];
-//	int delantero[4];
-//
-//	inicializarVector(arquero, 2, 0);
-//	inicializarVector(defensor, 8, 0);
-//	inicializarVector(mediocampista, 8, 0);
-//	inicializarVector(delantero, 4, 0);
+	float costoComida = 0;
+	float costoHospedaje = 0;
+	float costoTransporte = 0;
+	int camisetas;
+	int posicion;
+	int confederacion;
 
 	int arquerosCargados = 0;
 	int delanterosCargados = 0;
 	int defensoresCargados = 0;
 	int mediocampistasCargados = 0;
 
-	char posicion[22];
-	char confederacion[22];
 	int i;
 	int respuesta;
 	int resultado;
-//	char resultadoPosicion[15];
+
+	int contadorAFC = 0;
+	int contadorCAF = 0;
+	int contadorCONCACAF = 0;
+	int contadorCONMEBOL = 0;
+	int contadorUEFA = 0;
+	int contadorOFC = 0;
+	float promedio;
+	float mantenimiento;
+	int contadorJugadores = 0;
+	int flagMantenimiento = 0;
+	int flagJugadores = 0;
+
 	do {
 
 		puts("        Menu principal");
 		printf("\n1. Ingreso de los costos de mantenimiento");
-		printf("\nCosto de hospedaje -> $%d", costo[0]);
-		printf("\nCosto de comida -> $%d", costo[1]);
-		printf("\nCosto de transporte -> $%d", costo[2]);
+		printf("\nCosto de hospedaje -> $%.2f", costoHospedaje);
+		printf("\nCosto de comida -> $%.2f", costoComida);
+		printf("\nCosto de transporte -> $%.2f", costoTransporte);
 
 		printf("\n2.Carga de jugadores");
 		printf("\nArqueros -> %d", arquerosCargados);
@@ -63,90 +67,162 @@ int main(void) {
 
 		switch (opcion) {
 		case 1:
-			resultado = ingresarNumero(&respuesta,
-					"Ingrese costo de hospedaje: ", 100, 500,
-					"Error al ingresar los costos\n");
-			costo[0] = resultado;
 
-			resultado = ingresarNumero(&respuesta, "Ingrese costo de comida: ",
-					100, 500, "Error al ingresar los costos\n");
-			costo[1] = resultado;
+			if (ingresarNumeroFloat(&costoHospedaje, "Ingrese costo de hospedaje: ",
+					1, 100000, "Error al ingresar los costos\n") == 0) {
 
-			resultado = ingresarNumero(&respuesta,
-					"Ingrese costo de transporte: ", 100, 500,
-					"Error al ingresar los costos\n");
-			costo[2] = resultado;
-			break;
-		case 2:
-			for (i = 0; i < 4; i++) {
-				resultado = ingresarNumero(&respuesta,
-						"Ingrese numero de camiseta: ", 1, 99,
-						"Error al ingresar el numero de camiseta\n");
-				camisetas[i] = resultado;
+				if (ingresarNumeroFloat(&costoComida, "Ingrese costo de comida: ",
+						1, 100000, "Error al ingresar los costos\n") == 0) {
 
+					if (ingresarNumeroFloat(&costoTransporte,
+							"Ingrese costo de transporte: ", 1, 100000,
+							"Error al ingresar los costos\n") == 0) {
 
-				resultado = ingresarNumero(&respuesta, "Ingrese la posicion del jugador.\n coloque 1 para delantero\n coloque 2 para mediocampista\n coloque 3 para defensor\n coloque 4 para arquero", 1, 4 , "error");
-				posicion[i] = resultado;
+						mantenimiento = costoHospedaje + costoComida+ costoTransporte;
+						flagMantenimiento = 1;
+					}
 
-
-				if(resultado == 1){
-					delanterosCargados++;
-				}else if(resultado == 2){
-					mediocampistasCargados++;
-				}else if(resultado == 3){
-					defensoresCargados++;
-				}else {
-					arquerosCargados++;
 				}
 
-
-				if(delanterosCargados > 4){
-					delanterosCargados--;
-
-					printf("No se puede cargar mas de 4 delanteros\n");
-				}
-				if(mediocampistasCargados > 8){
-					mediocampistasCargados--;
-					printf("No puede cargar mas de 8 mediocampistas\n");
-				}
-				if(defensoresCargados > 8){
-					defensoresCargados--;
-					printf("No puede cargar mas de 8 defensores\n");
-				}
-				if(arquerosCargados > 3){
-					arquerosCargados--;
-					printf("No puede cargas mas de 3 arqueros\n");
-				}
-//				strcpy(resultadoPosicion,  ingresarString(&respuesta,"Ingresar posicion: delantero/mediocampista/defensor/arquero", "error"));
-//				strcpy(posicion[i] , resultadoPosicion);
-//				printf("%s", resultadoPosicion);
-
-
-
-//				if (strcmp(resultadoPosicion , "delantero") == 0) {
-//					delanterosCargados++;
-//				}
-//
-//				if (strcmp(resultadoPosicion , "defensor") == 0) {
-//					defensoresCargados++;
-//				}
-//
-//				if (resultadoPosicion == "mediocampista") {
-//					mediocampistasCargados++;
-//				}
-//
-//				if (resultadoPosicion == "arquero") {
-//					arquerosCargados++;
-//				}
-
-//				printf("Ingrese la confederacion que esta jugando: AFC/CAF/CONCACAF/CONMEBOL/UEFA/OFC");
-//				fgets(confederacion, 30, stdin);
-//				__fpurge(stdin);
-//
 			}
+
+			break;
+
+		case 2:
+			if (contadorJugadores < 4) {
+
+				if (ingresarNumeroInt(&respuesta, "Ingrese numero de camiseta: ",
+						1, 99, "Error al ingresar el numero de camiseta\n")
+						== 0) {
+
+					if (ingresarNumeroInt(&respuesta,
+							"Ingrese la posicion del jugador.\n"
+							"coloque 1 para delantero\n "
+							"coloque 2 para mediocampista\n "
+							"coloque 3 para defensor\n"
+							"coloque 4 para arquero",
+							1, 4, "error") == 0) {
+
+						switch (respuesta) {
+
+						case 1:
+							if (delanterosCargados < 4) {
+								delanterosCargados++;
+								contadorJugadores++;
+							} else {
+								printf("No se pueden ingresar mas");
+								ingresarNumeroInt(&respuesta,
+										"Ingrese la posicion del jugador.\n"
+										"coloque 1 para delantero\n "
+										"coloque 2 para mediocampista\n "
+										"coloque 3 para defensor\n "
+										"coloque 4 para arquero",
+										1, 4, "error");
+							}
+							break;
+//						case 2:
+//							if (mediocampistasCargados < 8) {
+//								mediocampistasCargados++;
+//								contadorJugadores++;
+//							} else {
+//								printf("No se pueden ingresar mas");
+//								ingresarNumeroInt(&respuesta,
+//								"Ingrese la posicion del jugador.\n"
+//								"coloque 1 para delantero\n "
+//								"coloque 2 para mediocampista\n "
+//								"coloque 3 para defensor\n "
+//								"coloque 4 para arquero",
+//								1, 4, "error");
+//							}
+//							break;
+//						case 3:
+//							if (defensoresCargados < 8) {
+//								defensoresCargados++;
+//								contadorJugadores++;
+//							} else {
+//								printf("No se pueden ingresar mas");
+//								ingresarNumeroInt(&respuesta,
+//								"Ingrese la posicion del jugador.\n"
+//								"coloque 1 para delantero\n "
+//								"coloque 2 para mediocampista\n "
+//								"coloque 3 para defensor\n "
+//								"coloque 4 para arquero",
+//								1, 4, "error");
+//							}
+//							break;
+//						case 4:
+//							if (arquerosCargados < 2) {
+//								arquerosCargados++;
+//								contadorJugadores++;
+//							} else {
+//								printf("No se pueden ingresar mas");
+//								ingresarNumeroInt(&respuesta,
+//								"Ingrese la posicion del jugador.\n"
+//								"coloque 1 para delantero\n "
+//								"coloque 2 para mediocampista\n "
+//								"coloque 3 para defensor\n "
+//								"coloque 4 para arquero",
+//								1, 4, "error");
+//							}
+//							break;
+						}
+
+						if (ingresarNumeroInt(&respuesta,
+								"Ingrese la confederacion que esta jugando: AFC/CAF/CONCACAF/CONMEBOL/UEFA/OFC",
+								0, 6, "Error") == 0) {
+
+							switch(respuesta){
+							case 1:
+								contadorAFC++;
+								break;
+							case 2:
+								contadorCAF++;
+								break;
+							case 3:
+								contadorCONCACAF++;
+								break;
+							case 4:
+								contadorCONMEBOL++;
+								break;
+							case 5:
+								contadorUEFA++;
+								break;
+							case 6:
+								contadorOFC++;
+								break;
+							}
+
+							flagJugadores = 1;
+						}
+
+					}
+
+				}
+
+			}
+
 			break;
 		case 3:
-			printf("Ingresaste a la opcion %i", opcion);
+
+			int aumento = 35;
+			float precioFinal;
+			if (flagMantenimiento == 0 && flagJugadores == 0) {
+				printf("Debe completas el campo 1 y 2");
+			} else {
+				if (contadorUEFA > contadorAFC && contadorUEFA > contadorCAF
+						&& contadorUEFA > contadorCONCACAF
+						&& contadorUEFA > contadorCONMEBOL
+						&& contadorUEFA > contadorOFC) {
+					precioFinal = mantenimiento + (mantenimiento * aumento) / 100;
+				} else {
+					precioFinal = mantenimiento;
+					promedio = contadorUEFA / 22;
+				}
+				printf("El costo de mantenimiento es:%.2f", precioFinal);
+				printf("%f" , promedio);
+
+			}
+
 			break;
 		case 4:
 			printf("Ingresaste a la opcion %i", opcion);
