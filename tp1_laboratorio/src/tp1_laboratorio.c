@@ -70,7 +70,7 @@ int main(void) {
 		switch (opcion) {
 		case 1:
 
-			utn_getNumero(&respuesta, "Ingrese\n 1.para hospedaje:\n 2.para comida:\n 3.para transporte: \n","Error, solamente puedes ingresar numeros del 1 al 5\n" , 1, 3, 5 );
+			utn_getNumero(&respuesta, "Ingrese\n 1.para hospedaje:\n 2.para comida:\n 3.para transporte: \n","Error, solamente puedes ingresar numeros del 1 al 3\n" , 1, 3, 5 );
 
 
 			switch(respuesta){

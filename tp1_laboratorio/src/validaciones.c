@@ -39,7 +39,6 @@ int utn_getNumero(int *pResultado, char *mensaje, char *mensajeError, int minimo
 	int num;
 	while (reintentos > 0) {
 		printf("%s", mensaje);
-		__fpurge(stdin);
 		if (getInt(&num) == 1) {
 			if (num <= maximo && num >= minimo){
 				break;
@@ -47,7 +46,6 @@ int utn_getNumero(int *pResultado, char *mensaje, char *mensajeError, int minimo
 		}
 		reintentos--;
 		printf("%s", mensajeError);
-		__fpurge(stdin);
 	}
 	if (reintentos == 0) {
 		ret = -1;
@@ -168,7 +166,7 @@ int getString(char* cadena, int longitud)
 
 float calcularPromedio(float  contador ){
 
-	return ((contador / 22) * 100);
+	return (contador / 22);
 }
 
 
