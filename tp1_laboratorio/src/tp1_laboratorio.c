@@ -228,12 +228,12 @@ int main(void) {
 
 			mantenimiento = costoHospedaje + costoComida + costoTransporte;
 
-			promedioUefa = calcularPromedio(contadorUEFA);
-			promedioCAF = calcularPromedio(contadorCAF);
-			promedioAFC = calcularPromedio(contadorAFC);
-			promedioCONMEBOL = calcularPromedio(contadorCONMEBOL);
-			promedioOFC = calcularPromedio(contadorOFC);
-			promedioCONCACAF = calcularPromedio(contadorCONCACAF);
+			promedioUefa = calcularPromedio(contadorUEFA, contadorJugadores);
+			promedioCAF = calcularPromedio(contadorCAF, contadorJugadores);
+			promedioAFC = calcularPromedio(contadorAFC, contadorJugadores);
+			promedioCONMEBOL = calcularPromedio(contadorCONMEBOL, contadorJugadores);
+			promedioOFC = calcularPromedio(contadorOFC, contadorJugadores);
+			promedioCONCACAF = calcularPromedio(contadorCONCACAF,contadorJugadores);
 
 			if (contadorUEFA > contadorAFC && contadorUEFA > contadorCAF
 					&& contadorUEFA > contadorCONCACAF

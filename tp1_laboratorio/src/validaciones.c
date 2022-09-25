@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "validaciones.h"
+#include <stdio_ext.h>
 
 int esNumerica(char cadena[]) {
 	int i;
@@ -164,9 +165,9 @@ int getString(char* cadena, int longitud)
 }
 
 
-float calcularPromedio(float  contador ){
+float calcularPromedio(float  contador , int cantidadJugadores){
 
-	return (contador / 22);
+	return (contador / cantidadJugadores);
 }
 
 

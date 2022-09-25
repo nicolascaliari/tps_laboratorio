@@ -41,11 +41,12 @@ int utn_getNumero(int *pResultado, char *mensaje, char *mensajeError, int minimo
 
 /**
  * \brief obtiene un contador y luego retorna el resultado
- * \param obtiene un contador y realiza los calculos
+ * \param contador obtiene un contador y realiza los calculos
+ * \param cantidadJUgadores obtiene la cantidad total de jugadores ingresados
  * \return retorna el calculo directamente
  */
 
-float calcularPromedio(float contador );
+float calcularPromedio(float contador,int cantidadJugadores );
 
 /**
 * \brief ​Verifica​ ​si​ ​la​ ​cadena​ ​ingresada​ ​es​ ​numerica
