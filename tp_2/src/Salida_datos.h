@@ -10,7 +10,8 @@
 
 #include "Jugador.h"
 #include "Confederacion.h"
-void menuJugador(eJugador arrayJugador[], eConfederacion arrayConfederacion[], int limiteJugador, int limiteConfederacion);
 
+int menuInformes(eJugador arrayJugador[], eConfederacion arrayConfederacion[], int limiteJugador, int limiteConfederacion);
+int menuJugador(eJugador arrayJugador[], eConfederacion arrayConfederacion[], int limiteJugador, int limiteConfederacion);
 
 #endif /* SALIDA_DATOS_H_ */

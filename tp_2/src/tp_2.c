@@ -17,15 +17,22 @@
 
 
 #define CANTIDAD_JUGADOR 100
-#define CANTIDAD_CONFEDERACIONES 6
+#define CANTIDAD_CONFEDERACIONES 20
 
 
 int main(void) {
 	eJugador arrayJugadores[CANTIDAD_JUGADOR];
 	eConfederacion arrayConfederaciones[CANTIDAD_CONFEDERACIONES];
-	inicializar_array(arrayJugadores, CANTIDAD_JUGADOR);
 	hardcodeoConfederacion(arrayConfederaciones,CANTIDAD_CONFEDERACIONES);
 
-	menuJugador(arrayJugadores, arrayConfederaciones, CANTIDAD_JUGADOR, CANTIDAD_CONFEDERACIONES);
+	if(inicializar_array(arrayJugadores, CANTIDAD_JUGADOR) == 0
+		&& inicializar_array_confederacion(arrayConfederaciones, CANTIDAD_CONFEDERACIONES) == 0
+		&&  menuJugador(arrayJugadores, arrayConfederaciones, CANTIDAD_JUGADOR, CANTIDAD_CONFEDERACIONES)==0)
+	{
+		printf("Todo salio bien");
+	}else
+	{
+		printf("Algo salio mal");
+	}
 	return EXIT_SUCCESS;
 }

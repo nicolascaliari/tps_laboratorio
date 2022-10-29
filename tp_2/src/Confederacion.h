@@ -14,6 +14,7 @@ typedef struct
 	char nombre[50];
 	char region[50];
 	int anioCreacion;
+	int isEmpty;
 
 }eConfederacion;
 
@@ -22,5 +23,19 @@ int pedirConfederacion(eConfederacion arrayConfederacion[], int limiteConfederac
 int mostrarConfederacion(eConfederacion arrayConfederacion[], int limiteConfederacion);
 int buscarConfederacion(eConfederacion arrayConfederacion[], int limiteConfederacion, int id,char *pConfederacion);
 int buscarRegion(eConfederacion arrayConfederacion[], int limiteConfederacion, int id,char *pConfederacion);
+
+int inicializar_array_confederacion(eConfederacion arrayConfederacion[], int limiteConfederacion);
+int alta_confederacion(eConfederacion arrayConfederacion[], int limiteConfederacion);
+int confederacion_bajaArray(eConfederacion arrayConfederacion[], int limiteConfederacion);
+int confederacion_modificarArray(eConfederacion arrayConfederacion[],int limiteConfederacion);
+int buscar_espacio_libre_confederacion(eConfederacion arrayConfederacion[], int limiteConfederacion);
+int buscar_id_confederacion(eConfederacion arrayConfederacion[], int limiteConfederacion, int valorBuscado);
+int buscar_espacio_array_confederacion(eConfederacion arrayConfederacion[], int limiteConfederacion);
+
+
+
+
+
+
 
 #endif /* CONFEDERACION_H_ */

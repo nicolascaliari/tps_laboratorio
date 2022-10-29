@@ -6,9 +6,6 @@
 #include "Validaciones.h"
 
 
-
-
-
 static int idJugador(void);
 static int idJugador(void)
 {
@@ -16,6 +13,14 @@ static int idJugador(void)
 	return idIncremental++;
 }
 
+
+/**
+ * \brief Inicializa el array
+ * \param arrayJugador Array de jugadores a ser actualizado
+ * \param limiteJugador Limite del array de jugadores
+ * \return Retorna 0 (EXITO) y -1 (ERROR)
+ *
+ */
 
 int inicializar_array(eJugador arrayJugador[], int limiteJugador)
 {
@@ -34,7 +39,14 @@ int inicializar_array(eJugador arrayJugador[], int limiteJugador)
 
 
 
-
+/**
+ * \brief Imprime los datos de un jugador
+ * \param unJugador variable de tipo eJugador
+ * \param arrayConfederacion
+ * \param limiteJugador
+ * \return Retorna 0 (EXITO) y -1 (ERROR)
+ *
+ */
 
 int jugador_imprimir(eJugador unJugador, eConfederacion arrayConfederacion[], int limiteConfederacion)
 {
@@ -58,6 +70,15 @@ int jugador_imprimir(eJugador unJugador, eConfederacion arrayConfederacion[], in
 }
 
 
+/**
+ * \brief Imprime el array de jugador
+ * \param arrayJugador Array de tipo eJugador
+ * \param arrayConfederacion Array de tipo eConfederacion
+ * \param limiteJugador Limite del array de jugador
+ * \param limiteConfederacion Limite del array de confederacion
+ * \return Retorna 0 (EXITO) y -1 (ERROR)
+ *
+ */
 
 int jugador_imprimirArray(eJugador arrayJugador[], eConfederacion arrayConfederacion[], int limiteConfederacion)
 {
@@ -79,7 +100,14 @@ int jugador_imprimirArray(eJugador arrayJugador[], eConfederacion arrayConfedera
 	return retorno;
 }
 
-
+/**
+ * \brief Carga los datos y da de alta un jugador en una posicion del array
+ * \param arrayJugador Array de tipo eJugador
+ * \param arrayConfederacion Array de tipo eConfederacion
+ * \param limiteJugador Limite del array de jugador
+ * \param limiteConfederacion Limite del array de confederacion
+ * \return Retorna 0 (EXITO) y -1 (ERROR)
+ */
 
 int alta_jugador(eJugador arrayJugador[], eConfederacion arrayConfederacion[], int limiteJugador, int limiteConfederacion)
 {
@@ -112,6 +140,19 @@ int alta_jugador(eJugador arrayJugador[], eConfederacion arrayConfederacion[], i
 	return retorno;
 }
 
+
+
+/**
+ * \brief Da de baja un jugador ingresando su ID
+ * \param arrayJugador Array de tipo eJugador
+ * \param arrayConfederacion Array de tipo eConfederacion
+ * \param limiteJugador Limite del array de jugador
+ * \param limiteConfederacion Limite del array de confederacion
+ * \return Retorna 0 (EXITO) y -1 (ERROR)
+ *
+ */
+
+
 int jugador_bajaArray(eJugador arrayJugador[], eConfederacion arrayConfederacion[], int limiteJugador, int limiteConfederacion)
 {
 	int retorno = -1;
@@ -139,6 +180,14 @@ int jugador_bajaArray(eJugador arrayJugador[], eConfederacion arrayConfederacion
 }
 
 
+/**
+ * \brief Modifico los datos de una variable de tipo eJugador seleccionado
+ * \param arrayJugador Array de tipo eJugador
+ * \param arrayConfederacion Array de tipo eConfederacion
+ * \param limiteJugador Limite del array de jugador
+ * \param limiteConfederacion Limite del array de confederacion
+ * \return Retorna 0 (EXITO) y -1 (ERROR)
+ */
 
 int jugador_modificarArray(eJugador arrayJugador[], eConfederacion arrayConfederacion[], int limiteJugador, int limiteConfederacion)
 {
@@ -196,6 +245,14 @@ int jugador_modificarArray(eJugador arrayJugador[], eConfederacion arrayConfeder
 }
 
 
+/**
+ * \brief Buscar primer posicion vacia
+ * \param arrayJugador Array de eJugador
+ * \param limiteJugador Limite del array de eJugador
+ * \return Retorna el incice de la posicion vacia y -1 (ERROR)
+ *
+ */
+
 int buscar_espacio_libre(eJugador arrayJugador[], int limiteJugador)
 {
 	int i;
@@ -214,6 +271,13 @@ int buscar_espacio_libre(eJugador arrayJugador[], int limiteJugador)
 	return retorno;
 }
 
+
+/** \brief Busca un ID que sea igual al valorBuscado y devuelve la posicion en que se encuentra
+ * \param arrayJugador Array de tipo eJugador
+ * \param limiteJugador Limite del array de eJugador
+ * \param valorBuscado variable de tipo INT
+ * \return Retorna la posicion donde encontro la coincidencia, si no encuentra retorna -1
+ */
 
 int buscar_id(eJugador arrayJugador[], int limiteJugador, int valorBuscado)
 {
@@ -234,7 +298,12 @@ int buscar_id(eJugador arrayJugador[], int limiteJugador, int valorBuscado)
 }
 
 
-
+/**
+*\brief: Verifica que haya espacio para cargar un nuevo dato de tipo eJugador.
+*\param: arrayJugador Array de tipo eJugador
+*\param: limiteJugador Limite del array de eJugador
+*\return: Retorna 1 si encuentra espacio, Retorna 0 si no lo encuentra.
+**/
 
 int buscar_espacio_array(eJugador arrayJugador[], int limitejugador)
 {
