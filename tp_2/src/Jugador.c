@@ -287,7 +287,7 @@ int buscar_id(eJugador arrayJugador[], int limiteJugador, int valorBuscado)
 	{
 		for(i = 0; i < limiteJugador; i++)
 		{
-			if(arrayJugador[i].id == valorBuscado)
+			if(arrayJugador[i].id == valorBuscado && arrayJugador[i].isEmpty == 1)
 			{
 				retorno = i;
 				break;

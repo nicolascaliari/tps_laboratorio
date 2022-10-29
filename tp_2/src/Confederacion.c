@@ -206,7 +206,7 @@ int buscar_id_confederacion(eConfederacion arrayConfederacion[], int limiteConfe
 	{
 		for(i = 0; i < limiteConfederacion; i++)
 		{
-			if(arrayConfederacion[i].id == valorBuscado)
+			if(arrayConfederacion[i].id == valorBuscado && arrayConfederacion[i].isEmpty == 1)
 			{
 				retorno = i;
 				break;
