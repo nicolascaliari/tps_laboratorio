@@ -11,13 +11,19 @@ typedef struct
 	char posicion[30];
 	char nacionalidad[30];
 	int idSeleccion;
-	int isEmpty;
 }Jugador;
 
 Jugador* jug_new();
 Jugador* jug_newParametros(char* idStr,char* nombreCompletoStr,char* edadStr, char* posicionStr, char* nacionalidadStr, char* idSelccionStr);
 
-void jug_delete();
+int idAutoincremental();
+int imprimirJugador(LinkedList* pArrayListaJugadores, int indice);
+int imprimirJugadorConSelec(LinkedList* pArrayListaJugadores, LinkedList* pArrayListaSeleccion, int indice);
+int encontrarjugador(LinkedList* pArrayListaJugadores, int indice);
+int jug_ordenarPorEdad(void* elementoA, void* elementoB);
+int jug_ordenarPorNacionalidad(void* elementoA, void* elementoB);
+int jug_ordenarPorNombre(void* elementoA, void* elementoB);
+void jug_delete(Jugador* this);
 
 int jug_setId(Jugador* this,int id);
 int jug_getId(Jugador* this,int* id);
@@ -35,7 +41,7 @@ int jug_setEdad(Jugador* this,int edad);
 int jug_getEdad(Jugador* this,int* edad);
 
 int jug_setIdSeleccion(Jugador* this,int idSeleccion);
-int jug_getSIdSeleccion(Jugador* this,int* idSeleccion);
+int jug_getIdSeleccion(Jugador* this,int* idSeleccion);
 
 int jug_setIsEmpty(Jugador* this,int isEmpty);
 int jug_getIsEmpty(Jugador* this,int* isEmpty);
