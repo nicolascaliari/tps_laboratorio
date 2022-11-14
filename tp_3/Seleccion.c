@@ -155,7 +155,7 @@ int encontrarSeleccion(LinkedList* pArrayListaSelecciones, int indice)
 	Seleccion* pSeleccion;
 	int i;
 
-	if(pArrayListaSelecciones != NULL && indice >= 0)
+	if(pArrayListaSelecciones != NULL && indice > 0)
 	{
 
 	for(i= 0 ; i < ll_len(pArrayListaSelecciones); i++)
@@ -183,7 +183,7 @@ int encontrarSeleccionString(LinkedList* pArrayListaSeleccion, int indice, char*
 
 	int i;
 
-	if(pArrayListaSeleccion != NULL && pSeleccion != NULL && indice >= 0)
+	if(pArrayListaSeleccion != NULL && pSeleccion != NULL && indice > 0)
 	{
 
 	for(i= 0 ; i < ll_len(pArrayListaSeleccion); i++)
@@ -204,28 +204,34 @@ int encontrarSeleccionString(LinkedList* pArrayListaSeleccion, int indice, char*
 }
 
 
-int encontrarConfederacion(LinkedList* pArrayListaSelecciones, int indice, char* confederacion)
+
+
+int encontrarConfederacion(LinkedList *pArrayListSeleccion, int indice, char *Confederation)
 {
-	int retorno =-1;
-	int idSeleccion;
-	Seleccion* pSeleccion;
-	int i;
-
-	if(pArrayListaSelecciones != NULL && indice >= 0)
+	int retorno = -1;
+	int limite;
+	int auxiliarID;
+	char auxiliarConfederation[30];
+	Seleccion *pSeleccion = NULL;
+	if (pArrayListSeleccion != NULL && Confederation != NULL && indice > 0)
 	{
-
-	for(i= 0 ; i < ll_len(pArrayListaSelecciones); i++)
-	{
-		pSeleccion = (Seleccion*)ll_get(pArrayListaSelecciones, i);
-
-		selec_getId(pSeleccion, &idSeleccion);
-
-			if(idSeleccion == indice)
+		limite = ll_len(pArrayListSeleccion);
+		if (limite > 0)
+		{
+			for (int i = 0; i < limite; i++)
 			{
-				ll_indexOf(pArrayListaSelecciones, pSeleccion);
-				strncpy(confederacion , pSeleccion->confederacion, 50);
-				retorno = 0;
-				break;
+				pSeleccion = (Seleccion*) ll_get(pArrayListSeleccion, i);
+				if (pSeleccion != NULL)
+				{
+					if (selec_getId(pSeleccion, &auxiliarID) == 1)
+					{
+						if (auxiliarID == indice && selec_getConfederacion(pSeleccion, auxiliarConfederation) == 1)
+						{
+							strcpy(Confederation, auxiliarConfederation);
+							retorno = 0;
+						}
+					}
+				}
 			}
 		}
 	}
@@ -233,21 +239,25 @@ int encontrarConfederacion(LinkedList* pArrayListaSelecciones, int indice, char*
 }
 
 
-
 int selec_ordenarPorConfederacion(void* elementoA, void* elementoB)
 {
 	int retorno = -1;
 	Seleccion* pSeleccionA;
 	Seleccion* pSeleccionB;
+	char confederacion_uno[30];
+	char confederacion_dos[30];
 
 	pSeleccionA = (Seleccion*)elementoA;
 	pSeleccionB = (Seleccion*)elementoB;
 
-	 if(strncmp(pSeleccionA->confederacion, pSeleccionB->confederacion, 50) > 0 )
+	selec_getConfederacion(pSeleccionA, confederacion_uno);
+	selec_getConfederacion(pSeleccionB, confederacion_dos);
+
+	 if(strcmp(confederacion_uno, confederacion_dos) > 0 )
 	    {
 	        retorno = 1;
 	    }
-	    else if(strncmp(pSeleccionA->confederacion, pSeleccionB->confederacion, 50) < 0)
+	    else if(strcmp(confederacion_uno, confederacion_dos) < 0)
 	    {
 	        retorno = -1;
 	    }

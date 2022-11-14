@@ -58,7 +58,7 @@ int menuListar(LinkedList* listaJugadores, LinkedList* listaSelecciones)
 	return retorno;
 }
 
-int menuOrdenarListar(LinkedList* listaJugadores, LinkedList* listaSelecciones)
+int menuListar_ordenar(LinkedList* listaJugadores, LinkedList* listaSelecciones)
 {
 	int retorno = -1;
 	int opcion;
@@ -69,19 +69,17 @@ int menuOrdenarListar(LinkedList* listaJugadores, LinkedList* listaSelecciones)
 
 	do
 	{
-		if(utn_getNumero(&opcion, "\n          Menu de ordenar y listar"
-									"\n1-Jugadores por nacionalidad"
-									"\n2-Selecciones por confederacion"
-									"\n3-Jugadores por edad"
-									"\n4-Jugadores por nombre"
-									"\n5-Salir y volver al menu principal"
+		if(utn_getNumero(&opcion, "\n          Elegir que ordenar y listar"
+									"\n1-Jugadores"
+									"\n2-Selecciones"
+									"\n3-Salir"
 									,"Error ingrese las opciones que se muestran en el menu", 1,6, 2)==0)
 		{
 
 			switch(opcion)
 			{
 			case 1:
-				if(ll_sort(listaJugadores, jug_ordenarPorNacionalidad, 1) == 0)
+				if(controller_ordenarJugadores(listaJugadores) == 0)
 				{
 					printf("\nSalio bien");
 				}else
@@ -90,7 +88,7 @@ int menuOrdenarListar(LinkedList* listaJugadores, LinkedList* listaSelecciones)
 				}
 				break;
 			case 2:
-				if(ll_sort(listaSelecciones, selec_ordenarPorConfederacion, 1) == 0)
+				if(controller_ordenarSelecciones(listaSelecciones) == 0)
 				{
 					printf("\nSalio bien");
 				}else
@@ -99,35 +97,18 @@ int menuOrdenarListar(LinkedList* listaJugadores, LinkedList* listaSelecciones)
 				}
 				break;
 			case 3:
-				if(ll_sort(listaJugadores, jug_ordenarPorEdad, 1) == 0)
-				{
-					printf("Ordenado correctamente\n");
-				}
-				else
-				{
-					printf("Hubo un error, reintente\n");
-				}
-				break;
-			case 4:
-				if(ll_sort(listaJugadores, jug_ordenarPorNombre, 1) == 0)
-				{
-					printf("Ordenado correctamente\n");
-				}
-				else
-				{
-					printf("Hubo un error, reintente\n");
-				}
-				break;
-			case 5:
 				break;
 		}
 	}
-	}while(opcion != 5);
+	}while(opcion != 3);
 
 }
 
 	return retorno;
 }
+
+
+
 
 
 int menuConvocarJugadores(LinkedList* listaJugadores, LinkedList* listaSelecciones)
@@ -168,7 +149,7 @@ int menuConvocarJugadores(LinkedList* listaJugadores, LinkedList* listaSeleccion
 }
 
 
-int menuJugadoresBinario(LinkedList* listaJugadores, LinkedList* listaSelecciones)
+int menu_guardar_JugadoresBinario(LinkedList* listaJugadores, LinkedList* listaSelecciones)
 {
 	int retorno = -1;
 	int opcion;
@@ -181,29 +162,129 @@ int menuJugadoresBinario(LinkedList* listaJugadores, LinkedList* listaSeleccione
 	do
 	{
 		if(utn_getNumero(&opcion, "\n          Menu de convocacion"
-									"\n1-Gnerar archivo binario de conmebol"
-									"\n2-Quitar de la seleccion"
-									"\n3-Salir y volver al menu principal"
-									,"Error ingrese las opciones que se muestran en el menu", 1,3,2)==0)
+									"\n1-Generar archivo binario de conmebol"
+									"\n2-Generar archivo binario de afc"
+									"\n3-Generar archivo binario de caf"
+									"\n4-Generar archivo binario de cancacaf"
+									"\n5-Generar archivo binario de uefa"
+									"\n6-Salir"
+									,"Error ingrese las opciones que se muestran en el menu", 1,6,2)==0)
 		{
 
 			switch(opcion)
 			{
 			case 1:
 				strncpy(confederacion, "CONMEBOL", 30);
-				if(controller_guardarJugadorPorConfederacionBinario("CONMEBOL.BIN", listaJugadores, listaSelecciones,confederacion ) == 0)
+				if(controller_guardar_Jugador_Confederacion_Binario("CONMEBOL.bin", listaJugadores, listaSelecciones,confederacion ) == 0)
 				{
 					printf("\nSalio todo bien");
 				}
 				break;
 			case 2:
-				quitarJugadorDeSeleccion(listaSelecciones, listaJugadores);
+				strncpy(confederacion, "AFC", 30);
+				if(controller_guardar_Jugador_Confederacion_Binario("AFC.bien", listaJugadores, listaSelecciones,confederacion ) == 0)
+				{
+					printf("\nSalio todo bien");
+				}
 				break;
 			case 3:
+				strncpy(confederacion, "CAF", 30);
+				if(controller_guardar_Jugador_Confederacion_Binario("CAF.bin", listaJugadores, listaSelecciones,confederacion ) == 0)
+				{
+					printf("\nSalio todo bien");
+				}
+				break;
+			case 4:
+				strncpy(confederacion, "CONCACAF", 30);
+				if(controller_guardar_Jugador_Confederacion_Binario("CONCACAF.bin", listaJugadores, listaSelecciones,confederacion ) == 0)
+				{
+					printf("\nSalio todo bien");
+				}
+				break;
+			case 5:
+				strncpy(confederacion, "UEFA", 30);
+				if(controller_guardar_Jugador_Confederacion_Binario("UEFA.bin", listaJugadores, listaSelecciones,confederacion ) == 0)
+				{
+					printf("\nSalio todo bien");
+				}
+				break;
+			case 6:
 				break;
 		}
 	}
-	}while(opcion != 3);
+	}while(opcion != 6);
+
+}
+
+	return retorno;
+}
+
+
+
+int menu_cargar_JugadoresBinario(LinkedList* listaJugadores, LinkedList* listaSelecciones)
+{
+	int retorno = -1;
+	int opcion;
+	char confederacion[30];
+
+	if(listaJugadores != NULL && listaSelecciones != NULL)
+	{
+		retorno = 0;
+
+	do
+	{
+		if(utn_getNumero(&opcion, "\n          Menu de convocacion"
+									"\n1-Generar archivo binario de conmebol"
+									"\n2-Generar archivo binario de afc"
+									"\n3-Generar archivo binario de caf"
+									"\n4-Generar archivo binario de cancacaf"
+									"\n5-Generar archivo binario de uefa"
+									"\n6-Salir"
+									,"Error ingrese las opciones que se muestran en el menu", 1,6,2)==0)
+		{
+
+			switch(opcion)
+			{
+			case 1:
+				strncpy(confederacion, "CONMEBOL", 30);
+				if(controller_cargarJugador_Confederacion_Binario("CONMEBOL.bin", listaJugadores, listaSelecciones,confederacion ) == 0)
+				{
+					printf("\nSalio todo bien");
+				}
+				break;
+			case 2:
+				strncpy(confederacion, "AFC", 30);
+				if(controller_cargarJugador_Confederacion_Binario("AFC.bien", listaJugadores, listaSelecciones,confederacion ) == 0)
+				{
+					printf("\nSalio todo bien");
+				}
+				break;
+			case 3:
+				strncpy(confederacion, "CAF", 30);
+				if(controller_cargarJugador_Confederacion_Binario("CAF.bin", listaJugadores, listaSelecciones,confederacion ) == 0)
+				{
+					printf("\nSalio todo bien");
+				}
+				break;
+			case 4:
+				strncpy(confederacion, "CONCACAF", 30);
+				if(controller_cargarJugador_Confederacion_Binario("CONCACAF.bin", listaJugadores, listaSelecciones,confederacion ) == 0)
+				{
+					printf("\nSalio todo bien");
+				}
+				break;
+			case 5:
+				strncpy(confederacion, "UEFA", 30);
+				if(controller_cargarJugador_Confederacion_Binario("UEFA.bin", listaJugadores, listaSelecciones,confederacion ) == 0)
+				{
+					printf("\nSalio todo bien");
+				}
+				break;
+			case 6:
+				break;
+		}
+	}
+	}while(opcion != 6);
 
 }
 

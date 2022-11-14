@@ -6,13 +6,14 @@
 #include "Jugador.h"
 #include "Validaciones.h"
 #include "Salida_datos.h"
+#include "Seleccion.h"
 
 int main()
 {
 	setbuf(stdout,NULL);
     int option = 0;
-    int retorno;
     char confederacion[30];
+    strncpy(confederacion, "CONMEBOL", 30);
     LinkedList* listaJugadores = ll_newLinkedList();
     LinkedList* listaSelecciones = ll_newLinkedList();
 
@@ -76,19 +77,13 @@ int main()
             	}
                 break;
             case 7:
-            	menuOrdenarListar(listaJugadores,listaSelecciones);
+            	menuListar_ordenar(listaJugadores,listaSelecciones);
                 break;
             case 8:
-				strncpy(confederacion, "CONMEBOL", 30);
-				retorno = controller_guardarJugadorPorConfederacionBinario("CONMEBOL.BIN", listaJugadores, listaSelecciones,confederacion);
-				printf("%d", retorno);
+            	menu_guardar_JugadoresBinario(listaJugadores, listaSelecciones);
                 break;
             case 9:
-            	strncpy(confederacion, "CONMEBOL", 30);
-            	if(controller_cargarJugadoresPorConfederacionBinario("CONMEBOL.BIN", listaJugadores, listaSelecciones, confederacion) == 0)
-            	{
-            		printf("\nSalio bien");
-            	}
+            	menu_cargar_JugadoresBinario(listaJugadores, listaSelecciones);
                 break;
             case 10:
             	controller_guardarJugadoresModoTexto("jugadores.csv", listaJugadores);

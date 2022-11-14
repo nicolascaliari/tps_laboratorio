@@ -20,6 +20,5 @@ int controllerCargarId(char* path, char* auxiliarID);
 int controller_GuardarNuevaLista(LinkedList* pArrayListJugador, LinkedList* pArrayListSeleccion);
 int controller_CargarNuevaLista(LinkedList* pArrayListJugador, LinkedList* pArrayListSeleccion);
 int controller_listarJugadoresConSelec(LinkedList* pArrayListJugador, LinkedList* pArrayListSeleccion);
-int controller_guardarJugadorPorConfederacionBinario(char *path, LinkedList* pArrayListJugador, LinkedList* pArrayListSeleccion, char* Confederacion);
-int controller_cargarJugadoresPorConfederacionBinario(char *path, LinkedList* pArrayListJugador,
-											LinkedList* pArrayListSeleccion, char Confederacion[]);
+int controller_guardar_Jugador_Confederacion_Binario(char *path, LinkedList* pArrayListJugador, LinkedList* pArrayListSeleccion, char* Confederacion);
+int controller_cargarJugador_Confederacion_Binario(char *path, LinkedList* pArrayListJugador,LinkedList* pArrayListSeleccion, char* Confederacion);

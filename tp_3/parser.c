@@ -59,58 +59,50 @@ int parser_JugadorFromText(FILE* pFile , LinkedList* pArrayListJugador)
  * \return int
  *
  */
-int parser_JugadorFromBinary(FILE* pFile , LinkedList* pArrayListJugador)
-{
-	int retorno = 0;
-	int axuId;
-	char auxNombreCompleto[100];
-	int auxEdad;
-	char axuPosicion[30];
-	char auxNacionalidad[30];
-	int auxIdSeleccion;
-	Jugador* auxJugador;
-	int retornoVariable;
+int parser_JugadorFromBinary(FILE* pFile, LinkedList* pArrayListJugador){
 
-	if(pFile != NULL && pArrayListJugador != NULL){
+    int retorno = 0;
+    int axuId;
+    char auxNombreCompleto[100];
+    int auxEdad;
+    char axuPosicion[30];
+    char auxNacionalidad[30];
+    int auxIdSeleccion;
+    Jugador* auxJugador;
+    int retornoVariable;
 
-		auxJugador = jug_new();
-
-		do{
-
-			if(auxJugador != NULL){
-
-				retornoVariable = fread(auxJugador, sizeof(Jugador), 1, pFile);
-
-				if(retornoVariable == 1){
+    if(pFile != NULL && pArrayListJugador != NULL){
 
 
-					if(!(jug_getId(auxJugador, &axuId)
-					&& jug_getNombreCompleto(auxJugador, auxNombreCompleto)
-					&& jug_getEdad(auxJugador, &auxEdad)
-					&& jug_getPosicion(auxJugador, axuPosicion)
-					&& jug_getNacionalidad(auxJugador, auxNacionalidad)
-					&& jug_getIdSeleccion(auxJugador, &auxIdSeleccion))){
+        do{
 
-						retorno = 0;
-						break;
+            auxJugador = jug_new();
 
-					}else{
-						controller_cargarJugadoresDesdeBinario("JugadoresNuevo" , pArrayListJugador);
-						retorno = 1;
-					}
+            if(auxJugador != NULL){
 
-				}else{
+                retornoVariable = fread(auxJugador, sizeof(Jugador), 1, pFile);
 
-					retorno = 0;
-					break; //si no leyo bien el archivo.
-				}
-			}
+                if(retornoVariable == 1){
 
-		}while(!feof(pFile));
-	}
-	return retorno;
+                    if(!(jug_getId(auxJugador, &axuId)
+                    && jug_getNombreCompleto(auxJugador, auxNombreCompleto)
+                    && jug_getEdad(auxJugador, &auxEdad)
+                    && jug_getPosicion(auxJugador, axuPosicion)
+                    && jug_getNacionalidad(auxJugador, auxNacionalidad)
+                    && jug_getIdSeleccion(auxJugador, &auxIdSeleccion))){
+
+                        retorno = 0;
+                        break;
+
+                    }
+                    retorno = 1;
+                }
+            }
+
+        }while(!feof(pFile));
+    }
+    return retorno;
 }
-
 
 /** \brief Parsea los datos de los selecciones desde el archivo selecciones.csv (modo texto).
  *

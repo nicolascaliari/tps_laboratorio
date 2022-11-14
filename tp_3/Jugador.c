@@ -326,7 +326,7 @@ int encontrarjugador(LinkedList* pArrayListaJugadores, int indice)
 
 int jug_ordenarPorEdad(void* elementoA, void* elementoB)
 {
-	int retorno = -1;
+	int retorno = 0;
 	Jugador* pJugadorA;
 	Jugador* pJugadorB;
 
@@ -348,18 +348,22 @@ int jug_ordenarPorEdad(void* elementoA, void* elementoB)
 
 int jug_ordenarPorNacionalidad(void* elementoA, void* elementoB)
 {
-	int retorno = -1;
+	int retorno = 0;
 	Jugador* pJugadorA;
 	Jugador* pJugadorB;
-
+	char nacionalidad_uno[30];
+	char nacionalidad_dos[30];
 	pJugadorA = (Jugador*)elementoA;
 	pJugadorB = (Jugador*)elementoB;
 
-	 if(strncmp(pJugadorA->nacionalidad, pJugadorB->nacionalidad, 50) > 0 )
+	jug_getNacionalidad(pJugadorA, nacionalidad_uno);
+	jug_getNacionalidad(pJugadorB, nacionalidad_dos);
+
+	 if(strcmp(nacionalidad_uno, nacionalidad_dos) > 0 )
 	    {
 	        retorno = 1;
 	    }
-	    else if(strncmp(pJugadorA->nacionalidad, pJugadorB->nacionalidad, 50) < 0)
+	    else if(strcmp(nacionalidad_uno, nacionalidad_dos) < 0)
 	    {
 	        retorno = -1;
 	    }
@@ -368,18 +372,24 @@ int jug_ordenarPorNacionalidad(void* elementoA, void* elementoB)
 
 int jug_ordenarPorNombre(void* elementoA, void* elementoB)
 {
-	int retorno = -1;
+	int retorno = 0;
 	Jugador* pJugadorA;
 	Jugador* pJugadorB;
+	char nombre_uno[30];
+	char nombre_dos[30];
 
 	pJugadorA = (Jugador*)elementoA;
 	pJugadorB = (Jugador*)elementoB;
 
-	 if(strncmp(pJugadorA->nombreCompleto, pJugadorB->nombreCompleto, 50) > 0 )
+	jug_getNombreCompleto(pJugadorA, nombre_uno);
+	jug_getNombreCompleto(pJugadorB, nombre_dos);
+
+
+	 if(strcmp(nombre_uno, nombre_dos) > 0 )
 	    {
 	        retorno = 1;
 	    }
-	    else if(strncmp(pJugadorA->nombreCompleto, pJugadorB->nombreCompleto, 50) < 0)
+	    else if(strcmp(nombre_uno, nombre_dos) < 0)
 	    {
 	        retorno = -1;
 	    }
