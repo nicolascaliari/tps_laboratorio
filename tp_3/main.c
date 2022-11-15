@@ -12,8 +12,9 @@ int main()
 {
 	setbuf(stdout,NULL);
     int option = 0;
-    char confederacion[30];
-    strncpy(confederacion, "CONMEBOL", 30);
+    int bandera_cargar_datos = 0;
+    int bandera_cargar_datos_binarios = 0;
+    int bandera_guardar_archivos = 0;
     LinkedList* listaJugadores = ll_newLinkedList();
     LinkedList* listaSelecciones = ll_newLinkedList();
 
@@ -37,58 +38,139 @@ int main()
         switch(option)
         {
             case 1:
-            	if(controller_cargarJugadoresDesdeTexto("jugadores.csv",listaJugadores)== 0)
+            	if(controller_cargarJugadoresDesdeTexto("jugadores.csv",listaJugadores)== 0
+            		&& controller_cargarSeleccionesDesdeTexto("selecciones.csv", listaSelecciones) == 0)
+
             	{
-            		printf("\nEl archivo de jugadores se leyo correctamente");
-            	}
-            	if(controller_cargarSeleccionesDesdeTexto("selecciones.csv", listaSelecciones)==0)
+            		printf("\nLos archivos  se leyeron correctamente");
+            		bandera_cargar_datos = 1;
+            	}else
             	{
-            		printf("\nEl archivo de selecciones se leyo correctamente");
+            		printf("\nLos archivos no se leyeron correctamente");
             	}
                 break;
             case 2:
-            	if(controller_agregarJugador(listaJugadores) == 0)
+            	if(bandera_cargar_datos == 1 && ll_isEmpty(listaJugadores) == 0)
             	{
-            		printf("\nTodo salio bien al dar de alta");
+                	if(controller_agregarJugador(listaJugadores) == 0)
+                	{
+                		printf("\nTodo salio bien al dar de alta");
+                	}
+            	}else
+            	{
+            		printf("\nDebes ingresar la opcion uno primero");
             	}
             	break;
             case 3:
-            	if(controller_editarJugador(listaJugadores) == 0)
+            	if(bandera_cargar_datos == 1 && ll_isEmpty(listaJugadores) == 0)
             	{
-            		printf("\nTodo salio bien al modificar");
+                	if(controller_editarJugador(listaJugadores) == 0)
+                	{
+                		printf("\nTodo salio bien al modificar");
+                	}
+            	}else
+            	{
+            		printf("\nDebes ingresar la opcion uno primero");
             	}
                 break;
             case 4:
-            	if(controller_removerJugador(listaJugadores, listaSelecciones) == 0)
+            	if(bandera_cargar_datos == 1 && ll_isEmpty(listaJugadores) == 0)
             	{
-            		printf("\nTodo salio bien al dar de baja");
+                	if(controller_removerJugador(listaJugadores, listaSelecciones) == 0)
+                	{
+                		printf("\nTodo salio bien al dar de baja");
+                	}
+            	}else
+            	{
+            		printf("\nDebes ingresar la opcion uno primero");
             	}
                 break;
             case 5:
-            	if(menuListar(listaJugadores, listaSelecciones) == 0)
+            	if(bandera_cargar_datos == 1 && ll_isEmpty(listaJugadores) == 0 && ll_isEmpty(listaSelecciones) == 0)
             	{
-            		printf("Todo ok");
+                	if(menuListar(listaJugadores, listaSelecciones) == 0)
+                	{
+                		printf("Todo ok");
+                	}
+            	}else
+            	{
+            		printf("\nDebes ingresar la opcion uno primero");
             	}
                 break;
             case 6:
-            	if(menuConvocarJugadores(listaJugadores, listaSelecciones))
+            	if(bandera_cargar_datos == 1 && ll_isEmpty(listaJugadores) == 0)
             	{
-            		printf("\nTodo ok");
+                	if(menuConvocarJugadores(listaJugadores, listaSelecciones) == 0)
+                	{
+                		printf("\nTodo ok");
+                	}
+            	}else
+            	{
+            		printf("\nDebes ingresar la opcion uno primero");
             	}
                 break;
             case 7:
-            	menuListar_ordenar(listaJugadores,listaSelecciones);
+            	if(bandera_cargar_datos == 1 && ll_isEmpty(listaJugadores) == 0)
+            	{
+            		if(menuListar_ordenar(listaJugadores,listaSelecciones) == 0)
+            		{
+            			printf("\nSalio todo bien");
+            		}
+            	}else
+            	{
+            		printf("\nDebes ingresar la opcion uno primero");
+            	}
                 break;
             case 8:
-            	menu_guardar_JugadoresBinario(listaJugadores, listaSelecciones);
+            	if(bandera_cargar_datos == 1 && ll_isEmpty(listaJugadores) == 0)
+            	{
+            		menu_guardar_JugadoresBinario(listaJugadores, listaSelecciones);
+            		bandera_cargar_datos_binarios = 1;
+            	}else
+            	{
+            		printf("\nDebes ingresar la opcion uno primero");
+            	}
+
                 break;
             case 9:
-            	menu_cargar_JugadoresBinario(listaJugadores, listaSelecciones);
+            	if(bandera_cargar_datos == 1 && bandera_cargar_datos_binarios == 1)
+            	{
+                	if(menu_cargar_JugadoresBinario(listaJugadores, listaSelecciones) == 0)
+                	{
+                		printf("\nTodo salio bien");
+
+                	}
+            	}else
+            	{
+            		printf("\nDebes ingresar la opcion 1 y 8");
+            	}
+
                 break;
             case 10:
-            	controller_guardarJugadoresModoTexto("jugadores.csv", listaJugadores);
+            	if(bandera_cargar_datos == 1 && ll_isEmpty(listaJugadores) == 0)
+            	{
+              		if(controller_guardarJugadoresModoTexto("jugadores.csv", listaJugadores) == 0
+                    			&& controller_guardarSeleccionesModoTexto("selecciones.csv",listaSelecciones ) == 0)
+                    		{
+              			ll_clear(listaJugadores);
+              			ll_clear(listaJugadores);
+              					bandera_guardar_archivos = 1;
+                    		}
+            	}else
+            	{
+            		printf("\nDebes ingresar la opcion uno primero");
+            	}
                 break;
             case 11:
+            	if(bandera_guardar_archivos == 0)
+            	{
+            		utn_getNumero(&option, "\nNo guardatse nada, seguro deseas salir? Ingresa 11 para salir o 1 para seguir.", "\nError", 1, 11, 2);
+
+            	}else{
+            		printf("\nPrograma finalizado");
+            		ll_deleteLinkedList(listaSelecciones);
+            		ll_deleteLinkedList(listaJugadores);
+            	}
             	break;
         }
     }

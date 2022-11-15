@@ -23,6 +23,8 @@ int encontrarjugador(LinkedList* pArrayListaJugadores, int indice);
 int jug_ordenarPorEdad(void* elementoA, void* elementoB);
 int jug_ordenarPorNacionalidad(void* elementoA, void* elementoB);
 int jug_ordenarPorNombre(void* elementoA, void* elementoB);
+int elegirPosicion(char *Pposicion);
+int elegirNacionalidad(char *Pnacionalidad);
 void jug_delete(Jugador* this);
 
 int jug_setId(Jugador* this,int id);

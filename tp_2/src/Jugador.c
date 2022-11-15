@@ -59,7 +59,7 @@ int jugador_imprimir(eJugador unJugador, eConfederacion arrayConfederacion[], in
 			if(unJugador.idConfederacion == arrayConfederacion[i].id)
 			{
 				retorno = 0;
-				printf("  %d   |%10s        |%10s        |%10d       |%2.f        |%10d          |%10s\n\n",
+				printf("  %d   |%20s        |%10s        |%10d       |%2.f        |%10d          |%10s\n\n",
 									unJugador.id, unJugador.nombre, unJugador.posicion,
 									unJugador.numeroCamiseta, unJugador.salario,
 									unJugador.aniosContrato, arrayConfederacion[i].nombre);
@@ -122,7 +122,7 @@ int alta_jugador(eJugador arrayJugador[], eConfederacion arrayConfederacion[], i
 		if(indice != -1)
 		{
 
-			if(utn_getNombre(auxiliar.nombre, 50, "\nIngrese su nombre\n","\nERROR\n", 2) == 0
+			if(utn_getNombre(auxiliar.nombre, 20, "\nIngrese su nombre\n","\nERROR\n", 2) == 0
 					&& utn_getNombre(auxiliar.posicion, 50,"Ingrese su posicion", "error", 2) == 0
 					&& utn_getNumeroShort(&auxiliar.numeroCamiseta,"Ingrese su numero de camiseta", "error", 1, 90, 2) == 0
 					&& utn_getNumeroFlotante(&auxiliar.salario,"Ingrese su salario", "error", 1, 600000, 2) == 0

@@ -311,12 +311,12 @@ int mostrarConfederacion(eConfederacion arrayConfederacion[], int limiteConfeder
 	if(arrayConfederacion != NULL && limiteConfederacion > 0)
 	{
 		retorno = 0;
-		printf("       ID		      NOMBRE		         REGION	   		ANIO");
+		printf("       ID		      NOMBRE		         REGION	   		     ANIO");
 		for( i = 0; i < limiteConfederacion ; i++)
 		{
 			if(arrayConfederacion[i].isEmpty == 1)
 			{
-				printf("\n%d		|%10s		 |%10s			|%10d|" , arrayConfederacion[i].id, arrayConfederacion[i].nombre, arrayConfederacion[i].region, arrayConfederacion[i].anioCreacion);
+				printf("\n%d		|%10s		 |%25s			|%10d|" , arrayConfederacion[i].id, arrayConfederacion[i].nombre, arrayConfederacion[i].region, arrayConfederacion[i].anioCreacion);
 			}
 		}
 	}

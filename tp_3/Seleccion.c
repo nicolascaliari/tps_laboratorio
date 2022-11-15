@@ -4,6 +4,12 @@
 #include "Seleccion.h"
 #include "LinkedList.h"
 
+
+/**
+ * \brief Reserva espacio en memoria para el tipo de dato Seleccion.
+ * \param void
+ * \return direccion de memoria reservada Seleccion.
+**/
 Seleccion* selec_new()
 {
 	Seleccion* pSeleccion;
@@ -21,6 +27,11 @@ Seleccion* selec_new()
 }
 
 
+/**
+ * \brief Setea los datos en los campos.
+ * \param 4 punteros a char.
+ * \return Puntero a Seleccion.
+**/
 Seleccion* selec_newParametros(char* idStr,char* paisStr,char* confederacionStr, char* convocadosStr)
 {
 
@@ -43,6 +54,11 @@ Seleccion* selec_newParametros(char* idStr,char* paisStr,char* confederacionStr,
 	return pSeleccion;
 }
 
+/**
+ * \brief Libera el espacio en memoria de un tipo de dato Seleccion.
+ * \param Puntero a Seleccion
+ * \return void.
+**/
 void selec_delete(Seleccion* this){
 
 	if(this != NULL)
@@ -53,6 +69,12 @@ void selec_delete(Seleccion* this){
 
 
 
+/**
+ * \brief Consigue un dato de tipo int en el campo id de Seleccion.
+ * \param puntero a Seleccion
+ * \param Puntero a int
+ * \return int 1 Bien, 0 ERROR.
+**/
 int selec_getId(Seleccion* this,int* id)
 {
 	int retorno = 0;
@@ -67,7 +89,12 @@ int selec_getId(Seleccion* this,int* id)
 
 
 
-
+/**
+ * \brief Consigue un dato de tipo int en el campo pais de Seleccion.
+ * \param puntero a Seleccion
+ * \param Puntero a char
+ * \return int 1 Bien, 0 ERROR.
+**/
 int selec_getPais(Seleccion* this,char* pais)
 {
 	int retorno = 0;
@@ -80,7 +107,12 @@ int selec_getPais(Seleccion* this,char* pais)
 
 }
 
-
+/**
+ * \brief Consigue un dato de tipo int en el campo confederacion de Seleccion.
+ * \param puntero a Seleccion
+ * \param Puntero a char
+ * \return int 1 Bien, 0 ERROR.
+**/
 int selec_getConfederacion(Seleccion* this,char* confederacion)
 {
 	int retorno = 0;
@@ -93,6 +125,12 @@ int selec_getConfederacion(Seleccion* this,char* confederacion)
 }
 
 
+/**
+ * \brief Carga un dato de tipo int en el campo convocados de Seleccion.
+ * \param puntero a Seleccion
+ * \param int
+ * \return int 1 Bien, 0 ERROR.
+**/
 int selec_setConvocados(Seleccion* this,int convocados)
 {
 	int retorno = 0;
@@ -104,6 +142,13 @@ int selec_setConvocados(Seleccion* this,int convocados)
 	return retorno;
 }
 
+
+/**
+ * \brief Consigue un dato de tipo int en el campo convocados de Seleccion.
+ * \param puntero a Seleccion
+ * \param Puntero a int
+ * \return int 1 Bien, 0 ERROR.
+**/
 int selec_getConvocados(Seleccion* this,int* convocados)
 {
 	int retorno = 0;
@@ -117,8 +162,12 @@ int selec_getConvocados(Seleccion* this,int* convocados)
 
 
 
-
-
+/*
+ * \brief Imprime Seleccion
+ * \param puntero a Linkedlist
+ * \param int
+ * \return 0 si funciono, -1 si hubo un error
+ */
 int imprimirSeleccion(LinkedList* pArrayListaSelecciones, int indice)
 {
 	int retorno = -1;
@@ -148,6 +197,12 @@ int imprimirSeleccion(LinkedList* pArrayListaSelecciones, int indice)
 }
 
 
+/**
+ * \brief Chequea la existencia de Seleccion.
+ * \param Puntero a Linkedlist
+ * \param int
+ * \return -1 error, si encuentra retorna el indice.
+**/
 int encontrarSeleccion(LinkedList* pArrayListaSelecciones, int indice)
 {
 	int retorno =-1;
@@ -175,6 +230,13 @@ int encontrarSeleccion(LinkedList* pArrayListaSelecciones, int indice)
 }
 
 
+
+/**
+ * \brief Chequea la existencia de Seleccion.
+ * \param Puntero a Linkedlist
+ * \param int
+ * \return -1 error, si encuentra retorna string en esa posicion.
+**/
 int encontrarSeleccionString(LinkedList* pArrayListaSeleccion, int indice, char* pSeleccion)
 {
 	int retorno =-1;
@@ -197,6 +259,8 @@ int encontrarSeleccionString(LinkedList* pArrayListaSeleccion, int indice, char*
 				retorno = ll_indexOf(pArrayListaSeleccion, pNuevoJugador);
 				strncpy(pSeleccion , pNuevoJugador->pais, 50);
 				break;
+			}else{
+				strncpy(pSeleccion, "No convocado", 30);
 			}
 		}
 	}
@@ -205,7 +269,13 @@ int encontrarSeleccionString(LinkedList* pArrayListaSeleccion, int indice, char*
 
 
 
-
+/**
+ * \brief Encuentra el string de la confederacion que se pasa por indice.
+ * \param Puntero a Linkedlist
+ * \param int
+ * \param puntero a char
+ * \return -1 error, si encuentra retorna el indice.
+**/
 int encontrarConfederacion(LinkedList *pArrayListSeleccion, int indice, char *Confederation)
 {
 	int retorno = -1;
@@ -238,10 +308,14 @@ int encontrarConfederacion(LinkedList *pArrayListSeleccion, int indice, char *Co
 	return retorno;
 }
 
-
+/**
+ * \brief selecciona dos punteros y evalua cual es mayor.
+ * \param puntero a void, puntero a void
+ * \return 0 error, retorna 1 o -1 dependiendo el ordenamiento
+**/
 int selec_ordenarPorConfederacion(void* elementoA, void* elementoB)
 {
-	int retorno = -1;
+	int retorno = 0;
 	Seleccion* pSeleccionA;
 	Seleccion* pSeleccionB;
 	char confederacion_uno[30];

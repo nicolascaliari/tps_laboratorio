@@ -157,17 +157,17 @@ int total_promedio_salario(eJugador arrayJugador[], int limiteJugador)
 			}
 		}
 		total = acumulador;
+
 		if(calcularPromedio(&promedio, total, contador) == 0)
 		{
 			printf("El promedio es:%2.f", promedio);
-		}
 
-
-		for(j = 0; j < limiteJugador; j++)
-		{
-			if(arrayJugador[j].isEmpty == 1 && arrayJugador[j].salario > promedio)
+			for(j = 0; j < limiteJugador; j++)
 			{
-				contadorJugadores++;
+				if(arrayJugador[j].isEmpty == 1 && arrayJugador[j].salario > promedio)
+				{
+					contadorJugadores++;
+				}
 			}
 		}
 		printf("\nEl total de los salarios es:%2.f", total);

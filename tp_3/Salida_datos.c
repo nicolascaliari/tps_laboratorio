@@ -7,7 +7,12 @@
 #include "Seleccion.h"
 #include "Validaciones.h"
 
-
+/**
+ * \brief Menu de listar.
+ * \param LinkedList* listaJugadores
+ * \param LinkedList* listaSelecciones
+ * \return 0 bien, -1 ERROR.
+**/
 int menuListar(LinkedList* listaJugadores, LinkedList* listaSelecciones)
 {
 	int retorno = -1;
@@ -58,6 +63,13 @@ int menuListar(LinkedList* listaJugadores, LinkedList* listaSelecciones)
 	return retorno;
 }
 
+
+/**
+ * \brief Menu de listar y ordenar.
+ * \param LinkedList* listaJugadores
+ * \param LinkedList* listaSelecciones
+ * \return 0 bien, -1 ERROR.
+**/
 int menuListar_ordenar(LinkedList* listaJugadores, LinkedList* listaSelecciones)
 {
 	int retorno = -1;
@@ -65,8 +77,6 @@ int menuListar_ordenar(LinkedList* listaJugadores, LinkedList* listaSelecciones)
 
 	if(listaJugadores != NULL && listaSelecciones != NULL)
 	{
-		retorno = 0;
-
 	do
 	{
 		if(utn_getNumero(&opcion, "\n          Elegir que ordenar y listar"
@@ -81,6 +91,7 @@ int menuListar_ordenar(LinkedList* listaJugadores, LinkedList* listaSelecciones)
 			case 1:
 				if(controller_ordenarJugadores(listaJugadores) == 0)
 				{
+					retorno = 0;
 					printf("\nSalio bien");
 				}else
 				{
@@ -90,6 +101,7 @@ int menuListar_ordenar(LinkedList* listaJugadores, LinkedList* listaSelecciones)
 			case 2:
 				if(controller_ordenarSelecciones(listaSelecciones) == 0)
 				{
+					retorno = 0;
 					printf("\nSalio bien");
 				}else
 				{
@@ -110,7 +122,12 @@ int menuListar_ordenar(LinkedList* listaJugadores, LinkedList* listaSelecciones)
 
 
 
-
+/**
+ * \brief Menu de convocar jugadores.
+ * \param LinkedList* listaJugadores
+ * \param LinkedList* listaSelecciones
+ * \return 0 bien, -1 ERROR.
+**/
 int menuConvocarJugadores(LinkedList* listaJugadores, LinkedList* listaSelecciones)
 {
 	int retorno = -1;
@@ -132,10 +149,16 @@ int menuConvocarJugadores(LinkedList* listaJugadores, LinkedList* listaSeleccion
 			switch(opcion)
 			{
 			case 1:
-				controller_ConvocarJugadores(listaSelecciones, listaJugadores);
+				if(controller_ConvocarJugadores(listaSelecciones, listaJugadores) == 0)
+				{
+					retorno = 0;
+				}
 				break;
 			case 2:
-				quitarJugadorDeSeleccion(listaSelecciones, listaJugadores);
+				if(quitarJugadorDeSeleccion(listaSelecciones, listaJugadores) == 0)
+				{
+					retorno = 0;
+				}
 				break;
 			case 3:
 				break;
@@ -149,6 +172,12 @@ int menuConvocarJugadores(LinkedList* listaJugadores, LinkedList* listaSeleccion
 }
 
 
+/**
+ * \brief Menu de guardar jugadores binario.
+ * \param LinkedList* listaJugadores
+ * \param LinkedList* listaSelecciones
+ * \return 0 bien, -1 ERROR.
+**/
 int menu_guardar_JugadoresBinario(LinkedList* listaJugadores, LinkedList* listaSelecciones)
 {
 	int retorno = -1;
@@ -220,7 +249,12 @@ int menu_guardar_JugadoresBinario(LinkedList* listaJugadores, LinkedList* listaS
 }
 
 
-
+/**
+ * \brief Menu de cargar jugadores binario.
+ * \param LinkedList* listaJugadores
+ * \param LinkedList* listaSelecciones
+ * \return 0 bien, -1 ERROR.
+**/
 int menu_cargar_JugadoresBinario(LinkedList* listaJugadores, LinkedList* listaSelecciones)
 {
 	int retorno = -1;

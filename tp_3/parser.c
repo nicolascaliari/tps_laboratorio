@@ -157,6 +157,14 @@ int parser_SeleccionFromText(FILE* pFile , LinkedList* pArrayListSeleccion)
 }
 
 
+
+/** \brief Parsea los datos de los id desde el archivo ID.csv (modo texto).
+ *
+ * \param path char*
+ * \param auxiliarID char*
+ * \return int
+ *
+ */
 int parser_ID(FILE* pFile , char* auxiliarID)
 {
 	int retorno = -1;
