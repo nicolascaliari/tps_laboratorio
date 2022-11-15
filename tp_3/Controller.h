@@ -15,7 +15,7 @@ int controller_guardarSeleccionesModoTexto(char* path , LinkedList* pArrayListSe
 
 int controller_ConvocarJugadores(LinkedList* pArrayListSeleccion, LinkedList* pArrayListJugador);
 int controller_ListarConvocados(LinkedList* pArrayListJugador, LinkedList* pArrayListSeleccion);
-int quitarJugadorDeSeleccion(LinkedList* pArrayListSeleccion, LinkedList* pArrayListJugador);
+int eliminarJugadorDeSeleccion(LinkedList* pArrayListSeleccion, LinkedList* pArrayListJugador);
 int controllerCargarId(char* path, char* auxiliarID);
 int controller_GuardarNuevaLista(LinkedList* pArrayListJugador, LinkedList* pArrayListSeleccion);
 int controller_CargarNuevaLista(LinkedList* pArrayListJugador, LinkedList* pArrayListSeleccion);

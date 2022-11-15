@@ -363,7 +363,7 @@ int imprimirJugadorConSelec(LinkedList* pArrayListaJugadores, LinkedList* pArray
 	int auxiliarIdSeleccion;
 	Jugador* pJugador =NULL;
 	char seleccion[50];
-
+	char auxSeleccion[30];
 	 if(pArrayListaJugadores != NULL && indice >= 0 && indice < ll_len(pArrayListaJugadores))
 	 {
 		pJugador = (Jugador*)ll_get(pArrayListaJugadores, indice);
@@ -377,8 +377,16 @@ int imprimirJugadorConSelec(LinkedList* pArrayListaJugadores, LinkedList* pArray
 	        && jug_getNacionalidad(pJugador, auxiliarNacionalidad)
 			&& jug_getIdSeleccion(pJugador, &auxiliarIdSeleccion))
 	        {
-	        	encontrarSeleccionString(pArrayListaSeleccion, auxiliarIdSeleccion, seleccion);
-	        	printf("|%10d | %20s | %10d | %20s | %10s |  %10s  |\n", auxiliarId, auxiliarNombreCompleto, auxiliarEdad, auxiliarPosicion,auxiliarNacionalidad, seleccion);
+
+	        	if(auxiliarIdSeleccion > 0 && encontrarSeleccionString(pArrayListaSeleccion, auxiliarIdSeleccion, seleccion) == 0 )
+	        	{
+	        		strcpy(auxSeleccion, seleccion);
+	        	}else if(auxiliarIdSeleccion == 0)
+	        	{
+	        		strcpy(auxSeleccion , "No convocado");
+	        	}
+
+	        	printf("|%10d | %20s | %10d | %20s | %10s |  %10s  |\n", auxiliarId, auxiliarNombreCompleto, auxiliarEdad, auxiliarPosicion,auxiliarNacionalidad, auxSeleccion);
 		        retorno  = 0;
 	        }
 		}
@@ -420,6 +428,11 @@ int encontrarjugador(LinkedList* pArrayListaJugadores, int indice)
 }
 
 
+/**
+ * \brief Permite elegir una posicion para el jugado.
+ * \param Puntero a char
+ * \return -1 error, si encuentra retorna el indice.
+**/
 int elegirPosicion(char *Pposicion)
 {
 	int retorno = -1;
@@ -492,7 +505,11 @@ int elegirPosicion(char *Pposicion)
 }
 
 
-
+/**
+ * \brief Permite elegir una nacionalidad para el jugado.
+ * \param Puntero a char
+ * \return -1 error, si encuentra retorna el indice.
+**/
 int elegirNacionalidad(char *Pnacionalidad)
 {
 	int retorno = -1;

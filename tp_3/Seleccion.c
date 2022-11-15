@@ -237,36 +237,39 @@ int encontrarSeleccion(LinkedList* pArrayListaSelecciones, int indice)
  * \param int
  * \return -1 error, si encuentra retorna string en esa posicion.
 **/
-int encontrarSeleccionString(LinkedList* pArrayListaSeleccion, int indice, char* pSeleccion)
+
+int encontrarSeleccionString(LinkedList *pArrayListSeleccion, int indice, char *Confederation)
 {
-	int retorno =-1;
-	int idSeleccion;
-	Seleccion* pNuevoJugador;
-
-	int i;
-
-	if(pArrayListaSeleccion != NULL && pSeleccion != NULL && indice > 0)
+	int retorno = -1;
+	int limite;
+	int auxiliarID;
+	char auxiliarConfederation[30];
+	Seleccion *pSeleccion = NULL;
+	if (pArrayListSeleccion != NULL && Confederation != NULL && indice > 0)
 	{
-
-	for(i= 0 ; i < ll_len(pArrayListaSeleccion); i++)
-	{
-		pNuevoJugador = (Seleccion*)ll_get(pArrayListaSeleccion, i);
-
-		selec_getId(pNuevoJugador, &idSeleccion);
-
-			if(idSeleccion == indice)
+		limite = ll_len(pArrayListSeleccion);
+		if (limite > 0)
+		{
+			for (int i = 0; i < limite; i++)
 			{
-				retorno = ll_indexOf(pArrayListaSeleccion, pNuevoJugador);
-				strncpy(pSeleccion , pNuevoJugador->pais, 50);
-				break;
-			}else{
-				strncpy(pSeleccion, "No convocado", 30);
+				pSeleccion = (Seleccion*) ll_get(pArrayListSeleccion, i);
+				if (pSeleccion != NULL)
+				{
+					if (selec_getId(pSeleccion, &auxiliarID) == 1)
+					{
+						if (auxiliarID == indice && selec_getPais(pSeleccion, auxiliarConfederation) == 1)
+						{
+							strcpy(Confederation, auxiliarConfederation);
+							retorno = 0;
+							break;
+						}
+					}
+				}
 			}
 		}
 	}
 	return retorno;
 }
-
 
 
 /**

@@ -30,6 +30,6 @@ int jugador_modificarArray(eJugador arrayJugador[], eConfederacion arrayConfeder
 int buscar_espacio_libre(eJugador arrayJugador[], int limiteJugador);
 int buscar_id(eJugador arrayJugador[], int limiteJugador, int valorBuscado);
 int buscar_espacio_array(eJugador arrayJugador[], int limitejugador);
-
+int elegirPosicion(char *Pposicion);
 
 #endif /* JUGADOR_H_ */

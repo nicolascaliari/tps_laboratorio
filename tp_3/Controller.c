@@ -813,7 +813,7 @@ int controller_ConvocarJugadores(LinkedList* pArrayListSeleccion, LinkedList* pA
  * \param LinkedList* listaSelecciones
  * \return 0 bien, -1 ERROR.
 **/
-int quitarJugadorDeSeleccion(LinkedList* pArrayListSeleccion, LinkedList* pArrayListJugador)
+int eliminarJugadorDeSeleccion(LinkedList* pArrayListSeleccion, LinkedList* pArrayListJugador)
 {
 	int retorno = -1;
 	int auxiliariD;
@@ -823,24 +823,46 @@ int quitarJugadorDeSeleccion(LinkedList* pArrayListSeleccion, LinkedList* pArray
 	int convocados;
 	Jugador* pJugador = NULL;
 	Seleccion* pSeleccion = NULL;
-	controller_ListarConvocados(pArrayListJugador, pArrayListSeleccion);
-	utn_getNumero(&auxiliariD, "\nIngrese ID del jugador para quitar de la seleccion", "\nError al ingresar ID", 1, 370, 2);
 
-	indice = encontrarjugador(pArrayListJugador, auxiliariD);
+		if(pArrayListJugador != NULL && pArrayListSeleccion != NULL)
+		{
+
+			controller_ListarConvocados(pArrayListJugador, pArrayListSeleccion);
+				if(utn_getNumero(&auxiliariD, "\nIngrese ID del jugador para quitar de la seleccion", "\nError al ingresar ID", 1, 370, 2) == 0)
+				{
+					indice = encontrarjugador(pArrayListJugador, auxiliariD);
+
+					if(indice != 1)
+					{
+						pJugador = (Jugador*)ll_get(pArrayListJugador, indice);
+
+						if(pJugador != NULL)
+						{
+							if(jug_getIdSeleccion(pJugador, &seleccion))
+							{
+								indiceSelec = encontrarSeleccion(pArrayListSeleccion, seleccion);
 
 
-	if(indice != 1)
-	{
-		pJugador = ll_get(pArrayListJugador, indice);
-		jug_getIdSeleccion(pJugador, &seleccion);
-		indiceSelec = encontrarSeleccion(pArrayListSeleccion, seleccion);
-		pSeleccion = ll_get(pArrayListSeleccion, indiceSelec);
-		jug_setIdSeleccion(pJugador, 0);
-		selec_getConvocados(pSeleccion, &convocados);
-		convocados--;
-		selec_setConvocados(pSeleccion, convocados);
-		retorno = 0;
-	}
+								pSeleccion = (Seleccion*)ll_get(pArrayListSeleccion, indiceSelec);
+
+								if(pSeleccion != NULL && jug_setIdSeleccion(pJugador, 0))
+								{
+									if(selec_getConvocados(pSeleccion, &convocados))
+									{
+										convocados--;
+
+										if(selec_setConvocados(pSeleccion, convocados))
+											{
+												retorno = 0;
+											}
+									}
+								}
+
+							}
+						}
+					}
+				}
+		}
 	return retorno;
 }
 
@@ -933,6 +955,8 @@ int controller_listarJugadoresConSelec(LinkedList* pArrayListJugador, LinkedList
 
     if(pArrayListJugador != NULL)
     {
+    	printf("|%10s | %20s | %10s | %20s | %10s  | %10s |\n", "ID", "NOMBRE JUGADOR", "EDAD",
+    																	"POSICION", "NACIONALIDAD", "idSeleccion");
 
         for(int i = 0; i < ll_len(pArrayListJugador); i++)
         {

@@ -152,12 +152,15 @@ int menuConvocarJugadores(LinkedList* listaJugadores, LinkedList* listaSeleccion
 				if(controller_ConvocarJugadores(listaSelecciones, listaJugadores) == 0)
 				{
 					retorno = 0;
+					printf("\nSe convoco en la seleccion correctamente");
+
 				}
 				break;
 			case 2:
-				if(quitarJugadorDeSeleccion(listaSelecciones, listaJugadores) == 0)
+				if(eliminarJugadorDeSeleccion(listaSelecciones, listaJugadores) == 0)
 				{
 					retorno = 0;
+					printf("\nSe saco de la seleccion correctamente");
 				}
 				break;
 			case 3:

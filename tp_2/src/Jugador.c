@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "Salida_datos.h"
 #include "Jugador.h"
 #include "Confederacion.h"
@@ -123,7 +124,7 @@ int alta_jugador(eJugador arrayJugador[], eConfederacion arrayConfederacion[], i
 		{
 
 			if(utn_getNombre(auxiliar.nombre, 20, "\nIngrese su nombre\n","\nERROR\n", 2) == 0
-					&& utn_getNombre(auxiliar.posicion, 50,"Ingrese su posicion", "error", 2) == 0
+					&& elegirPosicion(auxiliar.posicion) == 0
 					&& utn_getNumeroShort(&auxiliar.numeroCamiseta,"Ingrese su numero de camiseta", "error", 1, 90, 2) == 0
 					&& utn_getNumeroFlotante(&auxiliar.salario,"Ingrese su salario", "error", 1, 600000, 2) == 0
 					&& utn_getNumeroShort(&auxiliar.aniosContrato,"Ingrese anios de contrato", "error", 1, 50, 2)== 0)
@@ -320,5 +321,77 @@ int buscar_espacio_array(eJugador arrayJugador[], int limitejugador)
 			}
 		}
 	}
+	return retorno;
+}
+
+
+int elegirPosicion(char *Pposicion)
+{
+	int retorno = -1;
+	int elegir;
+
+	if(utn_getNumero(&elegir, "\nElegir la posicion del jugador"
+								"\n1-Portero"
+								"\n2-Defensa central"
+								"\n3-Lateral izquierdo"
+								"\n4-Lateral derecho"
+								"\n5-Pivote"
+								"\n6-Mediocentro"
+								"\n7-Medio centro ofensivo"
+								"\n8-Extremo izquierdo"
+								"\n9-Extremo derecho"
+								"\n10-Mediapunta"
+								"\n11-Delantero centro"
+								"\n12-Interior derecho"
+								"\n13-Interior izquierdo", "\nError", 1, 13, 2) == 0)
+	{
+		retorno = 0;
+
+		switch(elegir)
+		{
+		case 1:
+			strncpy(Pposicion , "Portero" , 30);
+			break;
+		case 2:
+			strncpy(Pposicion , "Defensa central" , 30);
+			break;
+		case 3:
+			strncpy(Pposicion , "Lateral izquierdo" , 30);
+			break;
+		case 4:
+			strncpy(Pposicion , "Lateral derecho" , 30);
+			break;
+		case 5:
+			strncpy(Pposicion , "Pivote" , 30);
+			break;
+		case 6:
+			strncpy(Pposicion , "Mediocentro" , 30);
+			break;
+		case 7:
+			strncpy(Pposicion , "Mediocentro ofensivo" , 30);
+			break;
+		case 8:
+			strncpy(Pposicion , "Extremo izquierdo" , 30);
+			break;
+		case 9:
+			strncpy(Pposicion , "Extremo derecho" , 30);
+			break;
+		case 10:
+			strncpy(Pposicion , "Mediapunta" , 30);
+			break;
+		case 11:
+			strncpy(Pposicion , "Delantero derecho" , 30);
+			break;
+		case 12:
+			strncpy(Pposicion , "Interior derecho" , 30);
+			break;
+		case 13:
+			strncpy(Pposicion , "Interior izquierdo" , 30);
+			break;
+
+
+		}
+	}
+
 	return retorno;
 }
