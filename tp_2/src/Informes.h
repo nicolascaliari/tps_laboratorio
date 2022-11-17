@@ -11,13 +11,19 @@
 #include "Confederacion.h"
 
 int jugador_ordenar_id_descripcion(eJugador arrayJugador[], eConfederacion arrayConfederacion[], int limiteJugador, int limiteConfederacion);
-int imprimir_jugador_informes(eJugador arrayJugador[], eConfederacion arrayConfederacion[], int limiteConfederaciones);
-int jugador_imprimir_informe(eJugador unJugador, eConfederacion arrayConfederacion[], int limiteConfederacion);
-int total_promedio_salario(eJugador arrayJugador[], int limiteJugador);
-int calcularConfederacionMayorAniosContratoTotal(eJugador arrayJugador[], eConfederacion arrayConfederacion[], int limiteJugador, int limiteConfederacion);
+int calcular_total_promedio_salario(eJugador arrayJugador[], int limiteJugador);
+int calcularConfederacionMayorAniosDeContratoTotal(eJugador arrayJugador[], eConfederacion arrayConfederacion[], int limiteJugador, int limiteConfederacion);
 int maximo_numero(int num1, int num2, int num3, int num4, int num5, int num6, int *pResultado, int *pIdMayor);
-int regionMasJugadores(eJugador arrayJugador[], eConfederacion arrayConfederacion[], int limiteJugador, int limiteConfederacion);
+int calcularRegionConMasJugadores(eJugador arrayJugador[], eConfederacion arrayConfederacion[], int limiteJugador, int limiteConfederacion);
 int calcularPromedio(float *pResultado, int multiplicador, int divisor);
-int porcentajeJugadores(eJugador arrayJugador[], int limiteJugador);
+int calcularPorcentajeJugadores(eJugador arrayJugador[], int limiteJugador, eConfederacion arrayConfederacion[], int limiteConfederacion);
 int calcularPorcentaje(float *pResultado, int multiplicador, int divisor);
+int acumular_salarios(eJugador arrayJugador[] , int limiteJugador, float* acumulador, int* contador);
+int Calcular_cantidad_asalariados(eJugador arrayJugador[], int limiteJugador, float promedio, int* cantidad);
+
+
+
+
+
+
 #endif /* INFORMES_H_ */

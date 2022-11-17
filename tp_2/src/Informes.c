@@ -69,29 +69,29 @@ int jugador_ordenar_id_descripcion(eJugador arrayJugador[], eConfederacion array
 	return retorno;
 }
 
-
-
-
-
-/**
- * \brief Ordena el array por nombre de confederacion y en el caso de ser iguales se ordena por nombre de jugador
- * \param arrayJugador Array de tipo ejugador
- * \param arrayConfederacion Array de tipo eConfederacion
- * \param limiteJugador Limite del array de jugador
- * \param limiteConfederacion Limite del array de confederacion
- * \return Retorna 0 (EXITO) y -1 (ERROR)
- */
-int imprimir_jugador_informes(eJugador arrayJugador[], eConfederacion arrayConfederacion[], int limiteConfederaciones)
+int acumular_salarios(eJugador arrayJugador[] , int limiteJugador, float* acumulador, int* contador)
 {
 	int retorno = -1;
 	int i;
-	if(arrayConfederacion != NULL && limiteConfederaciones > 0)
+	float acumulador_salarios = 0;
+	int contador_salarios = 0;
+	for(i = 0; i < limiteJugador; i++)
 	{
+		if(arrayJugador[i].isEmpty == 1)
+		{
+			acumulador_salarios+=arrayJugador[i].salario;
+			contador_salarios++;
+		}
+	}
+
+	if(acumulador > 0)
+	{
+		*acumulador = acumulador_salarios;
+		*contador = contador_salarios;
 		retorno = 0;
-		for( i = 0; i < limiteConfederaciones; i++)
-		{
-			jugador_imprimir_informe(arrayJugador[i], arrayConfederacion, limiteConfederaciones);
-		}
+	}else
+	{
+		printf("\nNo se cargo nada");
 	}
 	return retorno;
 }
@@ -99,30 +99,30 @@ int imprimir_jugador_informes(eJugador arrayJugador[], eConfederacion arrayConfe
 
 
 
-/**
- * \brief Carga los datos y da de alta una confederacion en una posicion del array
- * \param arrayConfederacion Array de tipo eConfederacion
- * \param limiteConfederacion Limite del array de confederacion
- * \return Retorna 0 (EXITO) y -1 (ERROR)
- */
-int jugador_imprimir_informe(eJugador unJugador, eConfederacion arrayConfederacion[], int limiteConfederacion)
+int Calcular_cantidad_asalariados(eJugador arrayJugador[], int limiteJugador, float promedio, int* cantidad)
 {
+
 	int retorno = -1;
 	int i;
-	if(unJugador.isEmpty == 1 && arrayConfederacion != NULL && limiteConfederacion > 0)
-	{
-		for(i = 0; i < limiteConfederacion; i++)
-		{
-			if(unJugador.idConfederacion == arrayConfederacion[i].id)
+	int contadorJugadores = 0;
+			for(i = 0; i < limiteJugador; i++)
 			{
-				printf("  NOMBRE:%s   CONFEDERACION:%s\n\n", unJugador.nombre, arrayConfederacion[i].nombre);
-				retorno = 0;
+				if(arrayJugador[i].isEmpty == 1 && arrayJugador[i].salario > promedio)
+				{
+					contadorJugadores++;
+				}
 			}
-		}
+
+	if(contadorJugadores > 0)
+	{
+		*cantidad = contadorJugadores;
+		retorno = 0;
+	}else
+	{
+		printf("\nNo hay ninguno que supere el promedio");
 	}
 	return retorno;
 }
-
 
 
 
@@ -133,49 +133,30 @@ int jugador_imprimir_informe(eJugador unJugador, eConfederacion arrayConfederaci
  * \return Retorna 0 (EXITO) y -1 (ERROR)
  */
 
-int total_promedio_salario(eJugador arrayJugador[], int limiteJugador)
+int calcular_total_promedio_salario(eJugador arrayJugador[], int limiteJugador)
 {
 	int retorno = -1;
-	int i;
-	int j;
 	float acumulador = 0;
 	int contador = 0;
-	int contadorJugadores = 0;
+	int cantidadAsalariados = 0;
 	float promedio;
-	float total;
 
 	if(arrayJugador != NULL && limiteJugador > 0)
 	{
-		retorno = 0;
-
-		for(i = 0; i < limiteJugador; i++)
+		if( acumular_salarios(arrayJugador, limiteJugador, &acumulador, &contador) == 0)
 		{
-			if(arrayJugador[i].isEmpty == 1)
+			if(calcularPromedio(&promedio, acumulador, contador) == 0)
 			{
-				acumulador+=arrayJugador[i].salario;
-				contador++;
-			}
-		}
-		total = acumulador;
-
-		if(calcularPromedio(&promedio, total, contador) == 0)
-		{
-			printf("El promedio es:%2.f", promedio);
-
-			for(j = 0; j < limiteJugador; j++)
-			{
-				if(arrayJugador[j].isEmpty == 1 && arrayJugador[j].salario > promedio)
+				if(Calcular_cantidad_asalariados(arrayJugador, limiteJugador, promedio, &cantidadAsalariados) == 0)
 				{
-					contadorJugadores++;
+					printf("El total de los salarios es: %2.f\n El promedio es:%2.f \n La cantidad que superan el promedio son: %d",acumulador, promedio, cantidadAsalariados);
+					retorno = 0;
 				}
 			}
 		}
-		printf("\nEl total de los salarios es:%2.f", total);
-		printf("\nLa cantidad de jugadores que superan el salario promedio es:%d", contadorJugadores);
 	}
 	return retorno;
 }
-
 
 
 /**
@@ -186,55 +167,39 @@ int total_promedio_salario(eJugador arrayJugador[], int limiteJugador)
  * \param limiteConfederacion Limite de arrayConfederacion
  * \return Retorna 0 (EXITO) y -1 (ERROR)
  */
-int calcularConfederacionMayorAniosContratoTotal(eJugador arrayJugador[], eConfederacion arrayConfederacion[], int limiteJugador, int limiteConfederacion)
+int calcularConfederacionMayorAniosDeContratoTotal(eJugador arrayJugador[], eConfederacion arrayConfederacion[], int limiteJugador, int limiteConfederacion)
 {
 	int retorno = -1;
 	int i;
-	int acumulador_conmebol = 0;
-	int acumulador_uefa = 0;
-	int acumulador_afc = 0;
-	int acumulador_caf = 0;
-	int acumulador_concacaf = 0;
-	int acumulador_ofc = 0;
-	int resultado;
-	char nombreConfederacion[50];
-	int id;
-
+	int j;
+	int maximoAnios;
+	int acumuladorGnerico;
+	char variableAuxiliarNombreConf[30];
 		if(arrayJugador != NULL && arrayConfederacion != NULL && limiteJugador > 0 && limiteConfederacion > 0)
 		{
 			retorno = 0;
 
-			for(i = 0; i < limiteJugador; i++)
+			for(i =0; i < limiteConfederacion; i++)
 			{
-				if(arrayJugador[i].idConfederacion == 100)
-						{
-							acumulador_conmebol+= arrayJugador[i].aniosContrato;
-						}
-						else if(arrayJugador[i].idConfederacion == 101)
-						{
-							acumulador_uefa+= arrayJugador[i].aniosContrato;
-						}
-						else if(arrayJugador[i].idConfederacion == 102)
-						{
-							acumulador_afc+= arrayJugador[i].aniosContrato;
-						}
-						else if(arrayJugador[i].idConfederacion == 103)
-						{
-							acumulador_caf+= arrayJugador[i].aniosContrato;
-						}
-						else if(arrayJugador[i].idConfederacion == 104)
-						{
-							acumulador_concacaf+= arrayJugador[i].aniosContrato;
-						}
-						else if(arrayJugador[i].idConfederacion == 105)
-						{
-							acumulador_ofc+= arrayJugador[i].aniosContrato;
-						}
-			}
+				acumuladorGnerico = 0;
+				for(j= 0 ; j < limiteJugador; j++)
+				{
+					if(arrayJugador[j].idConfederacion == arrayConfederacion[i].id)
+					{
 
-			maximo_numero(acumulador_conmebol, acumulador_uefa, acumulador_afc, acumulador_caf, acumulador_concacaf, acumulador_ofc, &resultado, &id);
-			buscarConfederacion(arrayConfederacion, limiteConfederacion, id, nombreConfederacion);
-			printf("\nEl nombre es: %s y su cantidad es:%d", nombreConfederacion, resultado);
+						acumuladorGnerico+= arrayJugador[j].aniosContrato;
+					}
+
+				}
+
+				if(maximoAnios < acumuladorGnerico || i == 0)
+				{
+					maximoAnios = acumuladorGnerico;
+					strcpy(variableAuxiliarNombreConf,arrayConfederacion[i].nombre);
+				}
+			}
+			printf("\nLa confederacion: %s con cantidad de anios : %d", variableAuxiliarNombreConf, maximoAnios);
+
 		}
 
 	return retorno;
@@ -250,55 +215,43 @@ int calcularConfederacionMayorAniosContratoTotal(eJugador arrayJugador[], eConfe
  * \param limiteConfederacion Limite de arrayConfederacion
  * \return Retorna 0 (EXITO) y -1 (ERROR)
  */
-int regionMasJugadores(eJugador arrayJugador[], eConfederacion arrayConfederacion[], int limiteJugador, int limiteConfederacion)
+int calcularRegionConMasJugadores(eJugador arrayJugador[], eConfederacion arrayConfederacion[], int limiteJugador, int limiteConfederacion)
 {
-	int retorno = -1;
-	int i;
-	int contador_conmebol = 0;
-	int contador_uefa = 0;
-	int contador_afc = 0;
-	int contador_caf = 0;
-	int contador_concacaf = 0;
-	int contador_ofc = 0;
-	int resultado;
-	char nombreConfederacion[50];
-	int id;
-
-		if(arrayJugador != NULL && arrayConfederacion != NULL && limiteJugador > 0 && limiteConfederacion > 0)
-		{
-			retorno = 0;
-
-			for(i = 0; i < limiteJugador; i++)
+		int retorno = -1;
+		int i;
+		int j;
+		int maximoAnios;
+		char variableAuxiliarNombreConf[30];
+		int contador;
+		int auxiliarID;
+			if(arrayJugador != NULL && arrayConfederacion != NULL && limiteJugador > 0 && limiteConfederacion > 0)
 			{
-				if(arrayJugador[i].idConfederacion == 100)
-						{
-							contador_conmebol++;
-						}
-						else if(arrayJugador[i].idConfederacion == 101)
-						{
-							contador_uefa++;
-						}
-						else if(arrayJugador[i].idConfederacion == 102)
-						{
-							contador_afc++;
-						}
-						else if(arrayJugador[i].idConfederacion == 103)
-						{
-							contador_caf++;
-						}
-						else if(arrayJugador[i].idConfederacion == 104)
-						{
-							contador_concacaf++;
-						}
-						else if(arrayJugador[i].idConfederacion == 105)
-						{
-							contador_ofc++;
-						}
-			}
+				retorno = 0;
 
-			maximo_numero(contador_conmebol, contador_uefa, contador_afc, contador_caf, contador_concacaf, contador_ofc, &resultado, &id);
-			buscarRegion(arrayConfederacion, limiteConfederacion, id, nombreConfederacion);
-			printf("\nEl nombre de la region es: %s y su cantidad es:%d", nombreConfederacion, resultado);
+				for(i =0; i < limiteConfederacion; i++)
+				{
+					contador = 0;
+					for(j= 0 ; j < limiteJugador; j++)
+					{
+						if(arrayJugador[j].idConfederacion == arrayConfederacion[i].id)
+						{
+
+							contador++;
+						}
+
+					}
+
+
+					if(maximoAnios < contador || i == 0)
+					{
+						maximoAnios = contador;
+						strcpy(variableAuxiliarNombreConf,arrayConfederacion[i].region);
+						 auxiliarID = arrayConfederacion[i].id;
+					}
+				}
+				printf("\n\nLa region con mas jugadores es: %s\n\n" , variableAuxiliarNombreConf);
+
+				listarJugadoresPorConfederacion(arrayJugador, limiteJugador, auxiliarID, arrayConfederacion, limiteConfederacion);
 		}
 
 	return retorno;
@@ -313,81 +266,44 @@ int regionMasJugadores(eJugador arrayJugador[], eConfederacion arrayConfederacio
  * \param limiteJugador Limite de arrayJugador
  * \return Retorna 0 (EXITO) y -1 (ERROR)
  */
-int porcentajeJugadores(eJugador arrayJugador[], int limiteJugador)
+int calcularPorcentajeJugadores(eJugador arrayJugador[], int limiteJugador, eConfederacion arrayConfederacion[], int limiteConfederacion)
 {
-	int retorno = -1;
-	int i;
-	int contador_conmebol = 0;
-	int contador_uefa = 0;
-	int contador_afc = 0;
-	int contador_caf = 0;
-	int contador_concacaf = 0;
-	int contador_ofc = 0;
-	int unJugador = 0;
-
-	float porcentajeConmebol;
-	float porcentajeUefa;
-	float porcentajeAfc;
-	float porcentajeCaf;
-	float porcentajeConcacaf;
-	float porcentajeOfc;
-
-
-		if(arrayJugador != NULL &&  limiteJugador > 0)
-		{
-			retorno = 0;
-
-			for(i = 0; i < limiteJugador; i++)
-			{
-
-				if(arrayJugador[i].isEmpty == 1)
+			int retorno = -1;
+			int i;
+			int j;
+			char variableAuxiliarNombreConf[30];
+			int contadorTotal = 0;
+			int contadorJugadores = 0;
+			float porcentaje;
+				if(arrayJugador != NULL && arrayConfederacion != NULL && limiteJugador > 0 && limiteConfederacion > 0)
 				{
-					unJugador++;
+					retorno = 0;
 
-
-				if(arrayJugador[i].idConfederacion == 100)
+					for(int k = 0; k < limiteJugador; k++)
+					{
+						if(arrayJugador[k].isEmpty == 1)
 						{
-							contador_conmebol++;
-						}
-						else if(arrayJugador[i].idConfederacion == 101)
-						{
-							contador_uefa++;
-						}
-						else if(arrayJugador[i].idConfederacion == 102)
-						{
-							contador_afc++;
-						}
-						else if(arrayJugador[i].idConfederacion == 103)
-						{
-							contador_caf++;
-						}
-						else if(arrayJugador[i].idConfederacion == 104)
-						{
-							contador_concacaf++;
-						}
-						else if(arrayJugador[i].idConfederacion == 105)
-						{
-							contador_ofc++;
+							contadorTotal++;
 						}
 					}
-				}
-					calcularPorcentaje(&porcentajeConmebol,contador_conmebol, unJugador);
-					calcularPorcentaje(&porcentajeUefa,contador_uefa, unJugador);
-					calcularPorcentaje(&porcentajeAfc,contador_afc, unJugador);
-					calcularPorcentaje(&porcentajeCaf,contador_caf, unJugador);
-					calcularPorcentaje(&porcentajeConcacaf,contador_concacaf, unJugador);
-					calcularPorcentaje(&porcentajeOfc,contador_ofc, unJugador);
 
+					for(i =0; i < limiteConfederacion; i++)
+					{
+						contadorJugadores = 0;
+						for(j= 0 ; j < limiteJugador; j++)
+						{
+							if(arrayJugador[j].idConfederacion == arrayConfederacion[i].id)
+							{
+								contadorJugadores++;
+							}
 
-					printf("\nEl promedio de CONMEBOL es: %.2f",porcentajeConmebol );
-					printf("\nEl promedio de UEFA es: %.2f",porcentajeUefa );
-					printf("\nEl promedio de AFC es: %.2f",porcentajeAfc );
-					printf("\nEl promedio de CAF es: %.2f",porcentajeCaf );
-					printf("\nEl promedio de CONCACAF es: %.2f",porcentajeConcacaf );
-					printf("\nEl promedio de OFC es: %.2f",porcentajeOfc );
-
-
+						}
+						strcpy(variableAuxiliarNombreConf,arrayConfederacion[i].nombre);
+						calcularPorcentaje(&porcentaje,contadorJugadores, contadorTotal);
+						printf("\nEl promedio de %s es: %.2f",variableAuxiliarNombreConf, porcentaje);
+					}
 			}
 
 	return retorno;
 }
+

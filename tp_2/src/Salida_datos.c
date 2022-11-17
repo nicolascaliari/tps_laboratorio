@@ -41,7 +41,7 @@ int menuInformes(eJugador arrayJugador[], eConfederacion arrayConfederacion[], i
 			case 1:
 				if(jugador_ordenar_id_descripcion(arrayJugador, arrayConfederacion, limiteJugador, limiteConfederacion) == 0)
 				{
-					jugador_imprimirArray(arrayJugador, arrayConfederacion, limiteConfederacion);
+					jugador_imprimirArray(arrayJugador, arrayConfederacion, limiteConfederacion, limiteJugador);
 				}else
 				{
 					printf("\nNo se pudo hacer el ordenamiento");
@@ -49,16 +49,13 @@ int menuInformes(eJugador arrayJugador[], eConfederacion arrayConfederacion[], i
 
 				break;
 			case 2:
-				if(imprimir_jugador_informes(arrayJugador, arrayConfederacion, limiteConfederacion) == 0)
+				if(listarJugadoresDeConfederaciones(arrayConfederacion, limiteConfederacion, arrayJugador , limiteJugador) == 0)
 				{
-					printf("\nListado de jugadores con sus confederaciones realizado con exito");
-				}else
-				{
-					printf("\nAlgo salio mal");
+					printf("\nTodo ok");
 				}
 				break;
 			case 3:
-				if(total_promedio_salario(arrayJugador, limiteJugador) ==0 )
+				if(calcular_total_promedio_salario(arrayJugador, limiteJugador) ==0 )
 				{
 					printf("\nTotal y promedio salio bien");
 				}else
@@ -67,7 +64,7 @@ int menuInformes(eJugador arrayJugador[], eConfederacion arrayConfederacion[], i
 				}
 				break;
 			case 4:
-				if(calcularConfederacionMayorAniosContratoTotal(arrayJugador, arrayConfederacion, limiteJugador, limiteConfederacion) == 0)
+				if(calcularConfederacionMayorAniosDeContratoTotal(arrayJugador, arrayConfederacion, limiteJugador, limiteConfederacion) == 0)
 				{
 					printf("\nTodo salio bien");
 				}else
@@ -77,7 +74,7 @@ int menuInformes(eJugador arrayJugador[], eConfederacion arrayConfederacion[], i
 				break;
 
 			case 5:
-				if(porcentajeJugadores(arrayJugador, limiteJugador) ==0)
+				if(calcularPorcentajeJugadores(arrayJugador, limiteJugador, arrayConfederacion, limiteConfederacion) ==0)
 				{
 					printf("\nTodo salio bien");
 				}else
@@ -87,7 +84,7 @@ int menuInformes(eJugador arrayJugador[], eConfederacion arrayConfederacion[], i
 
 				break;
 			case 6:
-				if(regionMasJugadores(arrayJugador, arrayConfederacion, limiteJugador, limiteConfederacion)==0)
+				if(calcularRegionConMasJugadores(arrayJugador, arrayConfederacion, limiteJugador, limiteConfederacion)==0)
 				{
 					printf("\nTodo salio bien");
 				}else

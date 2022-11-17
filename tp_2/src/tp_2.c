@@ -16,8 +16,8 @@
 #include "Validaciones.h"
 
 
-#define CANTIDAD_JUGADOR 100
-#define CANTIDAD_CONFEDERACIONES 20
+#define CANTIDAD_JUGADOR 3000
+#define CANTIDAD_CONFEDERACIONES 6
 
 
 int main(void) {
@@ -25,11 +25,12 @@ int main(void) {
 	eConfederacion arrayConfederaciones[CANTIDAD_CONFEDERACIONES];
 	hardcodeoConfederacion(arrayConfederaciones,CANTIDAD_CONFEDERACIONES);
 
+
 	int opcion;
 	int bandera = 0;
 	int contador = 0;
 
-	if(inicializar_array(arrayJugadores, CANTIDAD_JUGADOR) == 0 && inicializar_array_confederacion(arrayConfederaciones, CANTIDAD_CONFEDERACIONES) == 0)
+	if(inicializar_array(arrayJugadores, CANTIDAD_JUGADOR) == 0)
 	{
 
 	do

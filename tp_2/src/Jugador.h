@@ -23,7 +23,7 @@ typedef struct
 
 int inicializar_array(eJugador arrayJugador[], int limiteJugador);
 int jugador_imprimir(eJugador unJugador, eConfederacion arrayConfederacion[], int limiteConfederacion);
-int jugador_imprimirArray(eJugador arrayJugador[], eConfederacion arrayConfederacion[], int limiteConfederacion);
+int jugador_imprimirArray(eJugador arrayJugador[], eConfederacion arrayConfederacion[], int limiteConfederacion, int limiteJugador);
 int alta_jugador(eJugador arrayJugador[], eConfederacion arrayConfederacion[], int limiteJugador, int limiteConfederacion);
 int jugador_bajaArray(eJugador arrayJugador[], eConfederacion arrayConfederacion[], int limiteJugador, int limiteConfederacion);
 int jugador_modificarArray(eJugador arrayJugador[], eConfederacion arrayConfederacion[], int limiteJugador, int limiteConfederacion);
@@ -31,5 +31,9 @@ int buscar_espacio_libre(eJugador arrayJugador[], int limiteJugador);
 int buscar_id(eJugador arrayJugador[], int limiteJugador, int valorBuscado);
 int buscar_espacio_array(eJugador arrayJugador[], int limitejugador);
 int elegirPosicion(char *Pposicion);
+void encabezadoJugadores(void);
 
+int listarJugadoresPorConfederacion(eJugador arrayJugador[], int limiteJugador, int idConfederacion, eConfederacion arrayConfederacion[], int limiteConfederacion);
+int ordenarJugadoresporId(eJugador arrayJugador[], int limiteJugador);
+int listarJugadoresDeConfederaciones(eConfederacion arrayConfederacion[], int limiteConfederacion, eJugador arrayJugadores[], int limiteJugador);
 #endif /* JUGADOR_H_ */

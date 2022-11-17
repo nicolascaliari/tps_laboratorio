@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "Informes.h"
 #include "Salida_datos.h"
 #include "Jugador.h"
 #include "Confederacion.h"
@@ -60,7 +61,7 @@ int jugador_imprimir(eJugador unJugador, eConfederacion arrayConfederacion[], in
 			if(unJugador.idConfederacion == arrayConfederacion[i].id)
 			{
 				retorno = 0;
-				printf("  %d   |%20s        |%10s        |%10d       |%2.f        |%10d          |%10s\n\n",
+				printf("  %d   |%10s        |%25s        |%5d       |%2.f       |%10d        |  %15s\n\n",
 									unJugador.id, unJugador.nombre, unJugador.posicion,
 									unJugador.numeroCamiseta, unJugador.salario,
 									unJugador.aniosContrato, arrayConfederacion[i].nombre);
@@ -81,19 +82,16 @@ int jugador_imprimir(eJugador unJugador, eConfederacion arrayConfederacion[], in
  *
  */
 
-int jugador_imprimirArray(eJugador arrayJugador[], eConfederacion arrayConfederacion[], int limiteConfederacion)
+int jugador_imprimirArray(eJugador arrayJugador[], eConfederacion arrayConfederacion[], int limiteConfederacion, int limiteJugador)
 {
 	int retorno = -1;
 	int i;
 	if(arrayJugador != NULL && arrayConfederacion != NULL && limiteConfederacion > 0)
 	{
 		retorno = 0;
-		printf("                     ***LISTA DE JUGADORES***\n");
-		printf("----------------------------------------------------------------------------------------------------------------------\n");
-		printf("| ID  |      NOMBRE      |     POSICION     |   N DE CAMISETA |   SUELDO   | ANIOS DE CONTRATO  |    CONFEDERACION   |\n");
-		printf("----------------------------------------------------------------------------------------------------------------------\n");
+		encabezadoJugadores();
 
-		for(i = 0; i < limiteConfederacion; i++)
+		for(i = 0; i < limiteJugador; i++)
 		{
 			jugador_imprimir(arrayJugador[i], arrayConfederacion, limiteConfederacion);
 		}
@@ -123,11 +121,11 @@ int alta_jugador(eJugador arrayJugador[], eConfederacion arrayConfederacion[], i
 		if(indice != -1)
 		{
 
-			if(utn_getNombre(auxiliar.nombre, 20, "\nIngrese su nombre\n","\nERROR\n", 2) == 0
+			if(utn_getNombre(auxiliar.nombre, 20, "\nIngrese su nombre, tiene 2 intentos\n","\nERROR\n", 2) == 0
 					&& elegirPosicion(auxiliar.posicion) == 0
-					&& utn_getNumeroShort(&auxiliar.numeroCamiseta,"Ingrese su numero de camiseta", "error", 1, 90, 2) == 0
-					&& utn_getNumeroFlotante(&auxiliar.salario,"Ingrese su salario", "error", 1, 600000, 2) == 0
-					&& utn_getNumeroShort(&auxiliar.aniosContrato,"Ingrese anios de contrato", "error", 1, 50, 2)== 0)
+					&& utn_getNumeroShort(&auxiliar.numeroCamiseta,"Ingrese su numero de camiseta, tiene 2 intentos", "error", 1, 90, 2) == 0
+					&& utn_getNumeroFlotante(&auxiliar.salario,"Ingrese su salario, tiene 2 intentos", "error", 1, 600000, 2) == 0
+					&& utn_getNumeroShort(&auxiliar.aniosContrato,"Ingrese anios de contrato, tiene 2 intentos", "error", 1, 50, 2)== 0)
 					{
 				auxiliar.idConfederacion = pedirConfederacion(arrayConfederacion, limiteConfederacion);
 				auxiliar.isEmpty = 1;
@@ -163,9 +161,9 @@ int jugador_bajaArray(eJugador arrayJugador[], eConfederacion arrayConfederacion
 	if(arrayJugador != NULL && arrayConfederacion != NULL && limiteJugador > 0 && limiteConfederacion > 0)
 	{
 
-		jugador_imprimirArray(arrayJugador, arrayConfederacion, limiteConfederacion);
+		jugador_imprimirArray(arrayJugador, arrayConfederacion, limiteConfederacion, limiteJugador);
 
-			if(utn_getNumero(&id, "\nIngrese el ID que desea dar de baja", "Error al ingresar un ID", 1, 20, 2)==0)
+			if(utn_getNumero(&id, "\nIngrese el ID que desea dar de baja, tiene 2 intentos", "Error al ingresar un ID", 1, 20, 2)==0)
 			{
 				indice = buscar_id(arrayJugador, limiteJugador, id);
 
@@ -175,6 +173,9 @@ int jugador_bajaArray(eJugador arrayJugador[], eConfederacion arrayConfederacion
 					retorno = 0;
 				}
 
+			}else
+			{
+				printf("\nAgotaste los reintentos");
 			}
 	}
 	return retorno;
@@ -199,9 +200,9 @@ int jugador_modificarArray(eJugador arrayJugador[], eConfederacion arrayConfeder
 
 	if(arrayJugador != NULL && arrayConfederacion != NULL && limiteJugador > 0 && limiteConfederacion > 0)
 	{
-		jugador_imprimirArray(arrayJugador, arrayConfederacion, limiteConfederacion);
+		jugador_imprimirArray(arrayJugador, arrayConfederacion, limiteConfederacion , limiteJugador);
 
-		if(utn_getNumero(&id, "\nIngrese el ID que desea modificar", "\nError al ingresar el ID para modificar", 1, 20, 2) == 0)
+		if(utn_getNumero(&id, "\nIngrese el ID que desea modificar, tiene 2 intentos", "\nError al ingresar el ID para modificar", 1, 20, 2) == 0)
 		{
 			indice = buscar_id(arrayJugador, limiteJugador, id);
 
@@ -240,6 +241,9 @@ int jugador_modificarArray(eJugador arrayJugador[], eConfederacion arrayConfeder
 					}
 				}
 			}
+		}else
+		{
+			printf("\nAgotaste los reintentos");
 		}
 	}
 	return retorno;
@@ -325,6 +329,11 @@ int buscar_espacio_array(eJugador arrayJugador[], int limitejugador)
 }
 
 
+/**
+ * \brief Permite elegir una posicion para el jugado.
+ * \param Puntero a char
+ * \return -1 error, si encuentra retorna el indice.
+**/
 int elegirPosicion(char *Pposicion)
 {
 	int retorno = -1;
@@ -394,4 +403,112 @@ int elegirPosicion(char *Pposicion)
 	}
 
 	return retorno;
+}
+
+
+/**
+ * \brief Encabezado.
+ * \param void
+ * \return void
+**/
+void encabezadoJugadores(void) {
+	printf(
+			" ===========================================================================================================================\n");
+	printf(
+			" | ID |    NOMBRE         |  POSICION               	 | Num CAMISETA  | SUELDO    |  ANIOS de CONTRATO |    CONFEDERACION    |\n");
+	printf(
+			" ----------------------------------------------------------------------------------------------------------------------------\n");
+}
+
+
+
+/**
+ * \brief Permite elegir una posicion para el jugado.
+ * \param  arrayJugador Array de tipo eJugador
+ * \param limite de eJugador
+ * \param id de confederacion
+ * \param arrayConfederacion Array de tipo eConfederacion
+ * \param limite de confederacion
+**/
+int listarJugadoresPorConfederacion(eJugador arrayJugador[], int limiteJugador, int idConfederacion, eConfederacion arrayConfederacion[], int limiteConfederacion)
+{
+	int retorno = -1;
+
+	if(arrayJugador != NULL && limiteJugador > 0)
+	{
+		encabezadoJugadores();
+		if(ordenarJugadoresporId(arrayJugador, limiteJugador) == 0)
+		{
+			for(int i = 0; i < limiteJugador; i++)
+			{
+				if(arrayJugador[i].isEmpty == 1 && arrayJugador[i].idConfederacion == idConfederacion)
+				{
+					retorno = 0;
+					jugador_imprimir(arrayJugador[i], arrayConfederacion, limiteConfederacion);
+				}
+			}
+		}
+	}
+	return retorno;
+}
+
+
+/**
+ * \brief ordena la lista de jugadores por tipoId
+ * \param arrayJugador Array de tipo eJugador
+ * \param limite de eJugador
+**/
+int ordenarJugadoresporId(eJugador arrayJugador[], int limiteJugador)
+{
+	int retorno = -1;
+	int i;
+	int j;
+	eJugador auxJugador;
+
+	if(arrayJugador != NULL && limiteJugador > 0)
+	{
+		for(i = 0; i < limiteJugador - 1; i++)
+		{
+			for(j = i + 1; j < limiteJugador; j++)
+			{
+				if(arrayJugador[i].isEmpty == 1 && arrayJugador[j].isEmpty == 1)
+				{
+					if(arrayJugador[i].id > arrayJugador[j].id)
+					{
+						auxJugador = arrayJugador[i];
+						arrayJugador[i] = arrayJugador[j];
+						arrayJugador[j] = auxJugador;
+					}
+				}
+			}
+		}
+		retorno = 0;
+	}
+	return retorno;
+}
+/**
+ * \brief  Imprime un listado de los Jugadores separ�ndolos por la confederaci�n
+ * \param  arrayJugador Array de tipo eJugador
+ * \param limite de eJugador
+ * \param id de confederacion
+ * \param arrayConfederacion Array de tipo eConfederacion
+ * \param limite de confederacion
+**/
+int listarJugadoresDeConfederaciones(eConfederacion arrayConfederacion[], int limiteConfederacion, eJugador arrayJugadores[], int limiteJugador)
+{
+		int retorno = -1;
+		int i;
+		if(arrayConfederacion != NULL && limiteConfederacion > 0 && arrayJugadores != NULL && limiteJugador > 0)
+		{
+			for(i = 0; i < limiteConfederacion; i++)
+			{
+				printf("%30s\n", arrayConfederacion[i].nombre);
+				if(listarJugadoresPorConfederacion(arrayJugadores, limiteJugador,arrayConfederacion[i].id, arrayConfederacion, limiteConfederacion) == 0)
+				{
+					retorno = 0;
+				}
+				printf("\n");
+		}
+	}
+		return retorno;
 }

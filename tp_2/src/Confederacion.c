@@ -238,8 +238,8 @@ int hardcodeoConfederacion(eConfederacion arrayConfederacion[], int limiteConfed
 
 		arrayConfederacion[1].id = 101;
 		strncpy(arrayConfederacion[1].nombre, "UEFA", 50);
-		strncpy(arrayConfederacion[1].region, "SUDAMERICA", 50);
-		arrayConfederacion[1].anioCreacion = 1916;
+		strncpy(arrayConfederacion[1].region, "EUROPA", 50);
+		arrayConfederacion[1].anioCreacion = 1954;
 		arrayConfederacion[1].isEmpty = 1;
 
 		arrayConfederacion[2].id = 102;
