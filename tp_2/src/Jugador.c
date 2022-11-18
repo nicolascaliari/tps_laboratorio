@@ -61,10 +61,9 @@ int jugador_imprimir(eJugador unJugador, eConfederacion arrayConfederacion[], in
 			if(unJugador.idConfederacion == arrayConfederacion[i].id)
 			{
 				retorno = 0;
-				printf("  %d   |%10s        |%25s        |%5d       |%2.f       |%10d        |  %15s\n\n",
-									unJugador.id, unJugador.nombre, unJugador.posicion,
-									unJugador.numeroCamiseta, unJugador.salario,
-									unJugador.aniosContrato, arrayConfederacion[i].nombre);
+				printf("|%*d|%*s|%*s|%*d|%*.2f|%*s|%*d|\n", 2,unJugador.id,20,
+						unJugador.nombre, 20, unJugador.posicion, 10, unJugador.numeroCamiseta, 11,
+						unJugador.salario, 15, arrayConfederacion[i].nombre,10, unJugador.aniosContrato);
 			}
 		}
 	}
@@ -412,12 +411,9 @@ int elegirPosicion(char *Pposicion)
  * \return void
 **/
 void encabezadoJugadores(void) {
-	printf(
-			" ===========================================================================================================================\n");
-	printf(
-			" | ID |    NOMBRE         |  POSICION               	 | Num CAMISETA  | SUELDO    |  ANIOS de CONTRATO |    CONFEDERACION    |\n");
-	printf(
-			" ----------------------------------------------------------------------------------------------------------------------------\n");
+	printf("\n+-----------------------------------------------------------------------------------------------------+\n");
+	printf("| %2s |%17s | %18s | %1s | %2s | %4s | %1s |\n","ID","NOMBRE","POSICION","N°CAMISETA","SUELDO","CONFEDERACION","AÑOS DE CONTRATO");
+	printf("+-------------------------------------------------------------------------------------------------------+\n");
 }
 
 

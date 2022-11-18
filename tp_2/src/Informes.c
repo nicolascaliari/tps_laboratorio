@@ -184,7 +184,7 @@ int calcularConfederacionMayorAniosDeContratoTotal(eJugador arrayJugador[], eCon
 				acumuladorGnerico = 0;
 				for(j= 0 ; j < limiteJugador; j++)
 				{
-					if(arrayJugador[j].idConfederacion == arrayConfederacion[i].id)
+					if(arrayJugador[j].idConfederacion == arrayConfederacion[i].id && arrayJugador[j].isEmpty == 1)
 					{
 
 						acumuladorGnerico+= arrayJugador[j].aniosContrato;
@@ -233,7 +233,7 @@ int calcularRegionConMasJugadores(eJugador arrayJugador[], eConfederacion arrayC
 					contador = 0;
 					for(j= 0 ; j < limiteJugador; j++)
 					{
-						if(arrayJugador[j].idConfederacion == arrayConfederacion[i].id)
+						if(arrayJugador[j].idConfederacion == arrayConfederacion[i].id && arrayJugador[j].isEmpty == 1)
 						{
 
 							contador++;
@@ -292,7 +292,7 @@ int calcularPorcentajeJugadores(eJugador arrayJugador[], int limiteJugador, eCon
 						contadorJugadores = 0;
 						for(j= 0 ; j < limiteJugador; j++)
 						{
-							if(arrayJugador[j].idConfederacion == arrayConfederacion[i].id)
+							if(arrayJugador[j].idConfederacion == arrayConfederacion[i].id && arrayJugador[j].isEmpty == 1)
 							{
 								contadorJugadores++;
 							}
