@@ -135,27 +135,6 @@ int utn_getNumeroFlotante(float *pResultado, char *mensaje, char *mensajeError,
 	return retorno;
 }
 
-int getString(char *cadena, int longitud) {
-	int retorno = -1;
-	char bufferString[4096];
-
-	if (cadena != NULL && longitud > 0) {
-		if (fgets(bufferString, sizeof(bufferString), stdin) != NULL) {
-			if (bufferString[strnlen(bufferString, sizeof(bufferString)) - 1]
-					== '\n') {
-				bufferString[strnlen(bufferString, sizeof(bufferString)) - 1] =
-						'\0';
-			}
-			if (strnlen(bufferString, sizeof(bufferString)) <= longitud) {
-				strncpy(cadena, bufferString, longitud);
-				retorno = 0;
-			}
-		}
-	}
-	return retorno;
-}
-
-
 
 
 
@@ -283,6 +262,28 @@ int utn_getDni(char* pResultado, int longitud,char* mensaje, char* mensajeError,
 			break;
 		}
 		printf("%s",mensajeError);
+	}
+	return retorno;
+}
+
+
+
+int getString(char *cadena, int longitud) {
+	int retorno = -1;
+	char bufferString[4096];
+
+	if (cadena != NULL && longitud > 0) {
+		if (fgets(bufferString, sizeof(bufferString), stdin) != NULL && bufferString[0] != ' ' && bufferString[0] != '\n') {
+			if (bufferString[strnlen(bufferString, sizeof(bufferString)) - 1]
+					== '\n') {
+				bufferString[strnlen(bufferString, sizeof(bufferString)) - 1] =
+						'\0';
+			}
+			if (strnlen(bufferString, sizeof(bufferString)) <= longitud) {
+				strncpy(cadena, bufferString, longitud);
+				retorno = 0;
+			}
+		}
 	}
 	return retorno;
 }
